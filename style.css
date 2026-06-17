@@ -254,14 +254,46 @@ h1, h2, h3, h4 {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    /* 远山剪影 */
-    radial-gradient(ellipse 130% 50% at 15% 88%, rgba(60,42,33,0.09) 0%, transparent 55%),
-    radial-gradient(ellipse 110% 45% at 80% 82%, rgba(60,42,33,0.07) 0%, transparent 50%),
-    radial-gradient(ellipse 90% 35% at 50% 90%, rgba(60,42,33,0.05) 0%, transparent 45%),
-    /* 宣纸质感 */
-    linear-gradient(180deg, var(--color-cream) 0%, var(--color-paper) 35%, var(--color-paper-dark) 100%);
   z-index: -1;
+  display: flex;
+}
+
+/* 左半 — 东南大学梅庵 */
+.hero-bg-left {
+  width: 50%;
+  height: 100%;
+  background: url('images/meian_wikimedia.jpg') center/cover no-repeat;
+  filter: blur(2px) brightness(0.65);
+  transform: scale(1.04); /* 防止模糊边缘露白 */
+}
+
+/* 右半 — 谢远定全身像 */
+.hero-bg-right {
+  width: 50%;
+  height: 100%;
+  background: url('images/0e08924de571230f312fb9c9788cb3e2.jpeg') center/cover no-repeat;
+  filter: blur(2px) brightness(0.65);
+  transform: scale(1.04);
+}
+
+/* 虚化渐变遮罩 — 保持宣纸底色氛围，确保文字可读 */
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg,
+      rgba(247,242,233,0.75) 0%,
+      rgba(247,242,233,0.35) 25%,
+      rgba(247,242,233,0.55) 50%,
+      rgba(247,242,233,0.35) 75%,
+      rgba(247,242,233,0.75) 100%
+    ),
+    linear-gradient(180deg,
+      var(--color-cream) 0%,
+      rgba(253,250,244,0.6) 30%,
+      rgba(247,242,233,0.4) 60%,
+      var(--color-paper-dark) 100%
+    );
 }
 
 /* 飘落花瓣 */
@@ -330,6 +362,7 @@ h1, h2, h3, h4 {
   margin-bottom: 0.6rem;
   opacity: 0;
   animation: fadeUp 0.8s 0.4s forwards;
+  text-shadow: 0 0 40px rgba(247,242,233,0.6), 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .hero-sub {
@@ -869,6 +902,14 @@ h1, h2, h3, h4 {
     font-size: 1rem;
   }
   .hamburger { display: flex; }
+
+  /* Hero 移动端 — 上下堆叠 */
+  .hero-bg { flex-direction: column; }
+  .hero-bg-left,
+  .hero-bg-right {
+    width: 100%;
+    height: 50%;
+  }
 
   /* 时间线 */
   .timeline-line { left: 1rem; }
