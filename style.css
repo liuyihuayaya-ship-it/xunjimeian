@@ -65,7 +65,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -140,17 +139,7 @@ h1, h2, h3, h4 {
   font-size: 1.05rem;
 }
 
-/* ---------- 滚动渐现 ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-}
-
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* ---------- 滚动渐现（已禁用） ---------- */
 
 /* ============================================================
    导航栏
@@ -934,8 +923,6 @@ h1, h2, h3, h4 {
    减少动画偏好
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
   .petal { display: none; }
   .scroll-hint { display: none; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }

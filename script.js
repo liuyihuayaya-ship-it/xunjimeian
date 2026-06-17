@@ -43,28 +43,8 @@
   });
 
   /* ==========================================================
-     滚动渐现动画 (Intersection Observer)
+     滚动渐现动画 — 已禁用，内容直接显示
      ========================================================== */
-  var revealObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        // 支持延迟
-        var delay = entry.target.style.getPropertyValue('--delay');
-        if (delay) {
-          setTimeout(function () {
-            entry.target.classList.add('revealed');
-          }, parseFloat(delay) * 1000);
-        } else {
-          entry.target.classList.add('revealed');
-        }
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(function (el) {
-    revealObserver.observe(el);
-  });
 
   /* ==========================================================
      导航栏当前 section 高亮 (Intersection Observer)
@@ -139,7 +119,7 @@
   });
 
   /* ==========================================================
-     平滑滚动回退（Safari 兼容）
+     导航跳转 — 即时切换，不平滑滚动
      ========================================================== */
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
@@ -149,8 +129,9 @@
       if (!target) return;
 
       e.preventDefault();
-      // 使用原生 smooth，配合 CSS scroll-behavior
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // 直接跳转，无动画
+      var top = target.getBoundingClientRect().top + window.pageYOffset - 64;
+      window.scrollTo({ top: top, behavior: 'instant' });
 
       // 更新 URL hash
       if (history.pushState) {
@@ -158,30 +139,6 @@
       }
     });
   });
-
-  /* ==========================================================
-     视差滚动 (Subtle, 仅在桌面端)
-     ========================================================== */
-  var heroBg = document.querySelector('.hero-bg');
-  var ticking = false;
-
-  function updateParallax() {
-    if (window.innerWidth < 768) return;
-    var scrollY = window.scrollY;
-    if (heroBg && scrollY < window.innerHeight) {
-      heroBg.style.transform = 'translateY(' + (scrollY * 0.25) + 'px)';
-    }
-  }
-
-  window.addEventListener('scroll', function () {
-    if (!ticking) {
-      requestAnimationFrame(function () {
-        updateParallax();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
 
   /* ==========================================================
      初始化
