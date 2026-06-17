@@ -76,7 +76,8 @@ body {
   color: var(--color-ink-light);
   background-color: var(--color-paper);
   line-height: 1.85;
-  overflow-x: hidden;
+  overflow: hidden;
+  height: 100vh;
 }
 
 img { display: block; max-width: 100%; }
@@ -98,6 +99,28 @@ h1, h2, h3, h4 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-container);
+}
+
+/* ===== 分页系统 — 每部分独立全屏，只能通过导航切换 ===== */
+.page {
+  display: none;
+  height: calc(100vh - 64px);
+  margin-top: 64px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ochre-light) transparent;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Hero 是特殊页 — 占满全屏，无内部滚动 */
+.page-hero {
+  height: 100vh;
+  margin-top: 0;
+  overflow: hidden;
 }
 
 .section {

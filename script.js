@@ -1,5 +1,5 @@
 /* ============================================================
-   寻迹梅庵 — 交互脚本
+   寻迹梅庵 — 分页切换脚本
    ============================================================ */
 (function () {
   'use strict';
@@ -7,35 +7,43 @@
   /* ==========================================================
      DOM 引用
      ========================================================== */
-  const navbar    = document.getElementById('navbar');
-  const navLinks  = document.getElementById('navLinks');
-  const hamburger = document.getElementById('hamburger');
-  const lightbox  = document.getElementById('lightbox');
-  const lbImg     = document.getElementById('lightboxImg');
-  const lbCaption = document.getElementById('lightboxCaption');
-  const lbClose   = document.getElementById('lightboxClose');
+  var navbar    = document.getElementById('navbar');
+  var navLinks  = document.getElementById('navLinks');
+  var hamburger = document.getElementById('hamburger');
+  var lightbox  = document.getElementById('lightbox');
+  var lbImg     = document.getElementById('lightboxImg');
+  var lbCaption = document.getElementById('lightboxCaption');
+  var lbClose   = document.getElementById('lightboxClose');
+  var allPages  = document.querySelectorAll('.page');
+  var allNavAs  = navLinks.querySelectorAll('a[data-page]');
 
   /* ==========================================================
-     导航栏滚动阴影
+     页面切换核心
      ========================================================== */
-  function onScroll() {
-    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  function switchPage(pageId) {
+    // 隐藏所有页面
+    allPages.forEach(function (p) {
+      p.classList.remove('active');
+    });
+    // 显示目标页面
+    var target = document.getElementById(pageId);
+    if (target) {
+      target.classList.add('active');
+      target.scrollTop = 0; // 回到顶部
+    }
+    // 更新导航高亮
+    allNavAs.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-page') === pageId);
+    });
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // init
 
-  /* ==========================================================
-     移动端汉堡菜单
-     ========================================================== */
-  hamburger.addEventListener('click', function () {
-    const isOpen = navLinks.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-  });
-
-  // 点击导航链接关闭菜单
-  navLinks.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
+  // 所有带 data-page 的链接（导航栏 + hero按钮 + 页脚）
+  document.querySelectorAll('[data-page]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var pageId = this.getAttribute('data-page');
+      if (pageId) switchPage(pageId);
+      // 移动端关闭菜单
       navLinks.classList.remove('open');
       hamburger.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
@@ -43,35 +51,32 @@
   });
 
   /* ==========================================================
-     滚动渐现动画 — 已禁用，内容直接显示
+     导航栏滚动阴影
      ========================================================== */
+  function updateNavShadow() {
+    var activePage = document.querySelector('.page.active');
+    var scrolled = false;
+    if (activePage && activePage !== document.getElementById('page-hero')) {
+      scrolled = activePage.scrollTop > 10;
+    }
+    navbar.classList.toggle('scrolled', scrolled);
+  }
 
-  /* ==========================================================
-     导航栏当前 section 高亮 (Intersection Observer)
-     ========================================================== */
-  var sections = [];
-  var navAs = navLinks.querySelectorAll('a');
-
-  // 收集所有锚点对应的 section
-  navAs.forEach(function (a) {
-    var href = a.getAttribute('href');
-    if (href && href.startsWith('#')) {
-      var el = document.querySelector(href);
-      if (el) sections.push({ link: a, section: el });
+  // 监听各内容页的滚动
+  document.querySelectorAll('.page').forEach(function (page) {
+    if (!page.classList.contains('page-hero')) {
+      page.addEventListener('scroll', updateNavShadow, { passive: true });
     }
   });
 
-  var navObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        navAs.forEach(function (a) { a.classList.remove('active'); });
-        var match = sections.find(function (s) { return s.section === entry.target; });
-        if (match) match.link.classList.add('active');
-      }
-    });
-  }, { threshold: 0.3, rootMargin: '-80px 0px -60% 0px' });
-
-  sections.forEach(function (s) { navObserver.observe(s.section); });
+  /* ==========================================================
+     移动端汉堡菜单
+     ========================================================== */
+  hamburger.addEventListener('click', function () {
+    var isOpen = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
 
   /* ==========================================================
      灯箱 Lightbox
@@ -83,7 +88,6 @@
       var imgDiv  = item.querySelector('.gallery-img');
       var caption = item.getAttribute('data-caption') || '';
 
-      // 克隆图片区域到灯箱
       var clone = imgDiv.cloneNode(true);
       clone.classList.add('lightbox-img');
       lbImg.innerHTML = '';
@@ -91,27 +95,21 @@
       lbCaption.textContent = caption;
       lightbox.classList.add('open');
       lightbox.setAttribute('aria-hidden', 'false');
-
-      // 防止 body 滚动
-      document.body.style.overflow = 'hidden';
     });
   });
 
   function closeLightbox() {
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
     lbImg.innerHTML = '';
   }
 
   lbClose.addEventListener('click', closeLightbox);
 
-  // 点击背景关闭
   lightbox.addEventListener('click', function (e) {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // Escape 键关闭
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && lightbox.classList.contains('open')) {
       closeLightbox();
@@ -119,31 +117,8 @@
   });
 
   /* ==========================================================
-     导航跳转 — 即时切换，不平滑滚动
-     ========================================================== */
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      var target = document.querySelector(targetId);
-      if (!target) return;
-
-      e.preventDefault();
-      // 直接跳转，无动画
-      var top = target.getBoundingClientRect().top + window.pageYOffset - 64;
-      window.scrollTo({ top: top, behavior: 'instant' });
-
-      // 更新 URL hash
-      if (history.pushState) {
-        history.pushState(null, null, targetId);
-      }
-    });
-  });
-
-  /* ==========================================================
      初始化
      ========================================================== */
-  // 确保页面加载时立即显示 hero 内容（防止无 JS 时内容不可见）
   console.log(
     '%c 寻迹梅庵 %c 东南大学 ',
     'color:#b8353a;font-size:1.2em;font-weight:bold;',
