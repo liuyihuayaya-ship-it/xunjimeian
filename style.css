@@ -255,44 +255,28 @@ h1, h2, h3, h4 {
   position: absolute;
   inset: 0;
   z-index: -1;
-  display: flex;
+  /* 梅庵实拍照片 — 建筑居中偏下，展示建筑(约2/3) + 周边环境 */
+  background:
+    url('images/meian_wikimedia.jpg') center 55% / cover no-repeat;
+  filter: blur(3px) brightness(0.55);
+  transform: scale(1.03); /* 防止模糊边缘露白 */
 }
 
-/* 左半 — 东南大学梅庵 */
-.hero-bg-left {
-  width: 50%;
-  height: 100%;
-  background: url('images/meian_wikimedia.jpg') center/cover no-repeat;
-  filter: blur(2px) brightness(0.65);
-  transform: scale(1.04); /* 防止模糊边缘露白 */
-}
-
-/* 右半 — 谢远定全身像 */
-.hero-bg-right {
-  width: 50%;
-  height: 100%;
-  background: url('images/0e08924de571230f312fb9c9788cb3e2.jpeg') center/cover no-repeat;
-  filter: blur(2px) brightness(0.65);
-  transform: scale(1.04);
-}
-
-/* 虚化渐变遮罩 — 保持宣纸底色氛围，确保文字可读 */
-.hero-bg-overlay {
+/* 虚化渐变遮罩 — 叠加在照片上方，保证文字可读 */
+.hero-bg::after {
+  content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg,
-      rgba(247,242,233,0.75) 0%,
-      rgba(247,242,233,0.35) 25%,
-      rgba(247,242,233,0.55) 50%,
-      rgba(247,242,233,0.35) 75%,
-      rgba(247,242,233,0.75) 100%
-    ),
+    /* 四周向中心渐变：四角宣纸色最浓，中间透出照片 */
+    radial-gradient(ellipse 70% 55% at 50% 55%, transparent 0%, rgba(247,242,233,0.25) 45%, rgba(247,242,233,0.55) 100%),
+    /* 上下渐变：上下边缘加深遮罩 */
     linear-gradient(180deg,
-      var(--color-cream) 0%,
-      rgba(253,250,244,0.6) 30%,
-      rgba(247,242,233,0.4) 60%,
-      var(--color-paper-dark) 100%
+      rgba(247,242,233,0.55) 0%,
+      rgba(247,242,233,0.2) 25%,
+      rgba(247,242,233,0.35) 50%,
+      rgba(247,242,233,0.2) 75%,
+      rgba(247,242,233,0.55) 100%
     );
 }
 
@@ -902,14 +886,6 @@ h1, h2, h3, h4 {
     font-size: 1rem;
   }
   .hamburger { display: flex; }
-
-  /* Hero 移动端 — 上下堆叠 */
-  .hero-bg { flex-direction: column; }
-  .hero-bg-left,
-  .hero-bg-right {
-    width: 100%;
-    height: 50%;
-  }
 
   /* 时间线 */
   .timeline-line { left: 1rem; }
