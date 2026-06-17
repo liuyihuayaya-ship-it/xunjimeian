@@ -1,0 +1,347 @@
+FILE: 期末总复习.pdf
+PAGES: 21
+
+
+--- Page 1 ---
+程序设计实践 A(I)
+复习
+王武森
+电气工程学院
+15150698528
+wswang@seu.edu.cn
+1
+--- Page 2 ---
+期末考试范围
+题1：基础题，1星，数值方法；（教师5-10分钟可以答完）
+题2：基础题，2星，数组+函数运用+简单递归；（教师10-15
+分钟可以答完）
+题3：基础题，3星，指针+函数运用；（教师10-15分钟可以
+答完）
+-----------------------------
+题4：进阶题，4星，工程运用+一维数组+字符串（教师20分
+钟可以答完）
+题5：进阶题，5星，工程运用+二维数组（一维数组模拟访问）
+（教师20分钟可以答完）
+1-2星问语法，3-4星问工程规范、设计思想，4-5星问方案辨析
+2
+--- Page 3 ---
+数值方法
+要点：
+• 递推法、迭代法等；
+• 注意循环中临时变量记得重置或迭代，注意循环的起始和终止条件等。
+泰勒公式求近似解
+牛顿迭代求近似解
+最大公约数、最小公倍数
+高斯迭代、雅可比迭代
+梯形法求定积分
+二分法求方程近似解
+函数要点：
+• 函数值传递、引用传递、指针传递
+• 重载函数
+• 函数默认参数
+3
+--- Page 4 ---
+数值方法
+【例】为N个班分配教室
+for (m1 = 0; m1 <= M1; m1++) {
+for (m2 = 0; m2 <= M2; m2++) {
+for (m3 = 0; m3 <= M3; m3++) {
+if (m1 + 2 * m2 + 3 * m3 == N) {
+cout<<"小教室："<<m1<<" 中教室："<<m2
+<<" 大教室："<< m3 << endl;
+count++;
+}
+}
+}
+}
+4
+--- Page 5 ---
+数值方法
+【例】为N个班分配教室
+for (m1 = 0; m1 <= M1; m1++) {
+for (m2 = 0; m2 <= M2; m2++) {
+for (m3 = 0; m3 <= M3; m3++) {
+bool flag = m1 + 2 * m2 + 3 * m3 >= N;
+bool flag1 = m1>0 && (m1-1)+2*m2+3*m3<N || m1==0;
+bool flag2 = m2>0 && m1+2*(m2-1)+3*m3<N || m2==0;
+bool flag3 = m3>0 && m1+2*m2+3*(m3-1)<N || m3==0;
+if (flag && flag1 && flag2 && flag3) {
+cout << m1 <<'\t'<< m2 <<'\t'<< m3 <<'\n';
+count++;
+}
+}
+}
+}
+5
+--- Page 6 ---
+数值方法
+【例】求方程f(x)的根
+while (fabs(f1(x)) > eps) {
+fa = f1(x1);
+fb = f1(x2);
+x = (x1 + x2) / 2;
+f = f1(x);
+if (f * fa < 0) {
+x2 = x;
+}
+else {
+x1 = x;
+}
+c++;
+}
+return x;
+6
+--- Page 7 ---
+数组+函数运用+简单递归
+要点：
+• 在函数中调用函数自身；
+• 如果给出了递归公式，直接套公式写代码，如果没给，要会自己归纳。
+• 归纳的技巧是：对照递推关系，递推的循环条件是递归的判断条件，再
+将递推关系式改写成自身调用。
+7
+--- Page 8 ---
+数组+函数运用+简单递归
+【例】求最大公约数
+int Greatestdiv_deduce(int num1, int num2) {
+int rest;
+do {
+rest = num1 % num2;
+num1 = num2;
+num2 = rest;
+} while (num2 != 0);
+return num1;
+} // 递推法
+int Greatestdiv_recurse(int num1, int num2) {
+if (num2 == 0) {
+return num1;
+}
+else {
+return Greatestdiv_recurse(num2, num1 % num2);
+}
+} // 递归法 8
+--- Page 9 ---
+数组+函数运用+简单递归
+【例】
+void Prime_factor(int n, int j) {
+if (n == 1) {
+return;
+}
+if (n > 1) {
+if (n % j == 0) {
+cout << j << '\t';
+Prime_factor(n / j, j);
+}
+else {
+Prime_factor(n, j + 1);
+}
+}
+}
+9
+--- Page 10 ---
+指针+函数运用
+要点：
+• 排序：升序和降序
+• 排序算法的时间复杂度和稳定性
+• rand()函数产生一定范围的随机数
+• 数组名和指针
+• 指针作为函数返回值，该指针指向的空间不应该是该函数的栈空间
+• 动态内存分配：new delete
+• 动态分配一维数组，如果要通过移动指针访问数组元素，需要新定义一
+个指针指向该数组，原指针指向数组第一个元素不动
+10
+--- Page 11 ---
+指针+函数运用
+【例】组合排序
+int* Merge(const int* arrA, int sizeA, const int* arrB, int
+sizeB, int* sizeC) {
+int* new_arr; // 存储合并后的元素的动态数组首地址
+new_arr = new int[sizeA + sizeB]; //申请新数组空间
+*sizeC = sizeA + sizeB; //合并后的数组大小
+int i = 0, j = 0, k = 0;
+while (i < sizeA && j < sizeB) { //合并两个数组
+if (arrA[i] < arrB[j])
+new_arr[k++] = arrA[i++];
+else
+new_arr[k++] = arrB[j++];
+}
+while (i < sizeA) //将数组A剩余元素加入新数组
+new_arr[k++] = arrA[i++];
+while (j < sizeB) //将数组B剩余元素加入新数组
+new_arr[k++] = arrB[j++];
+return new_arr; //返回合并后的数组首地址
+}
+11
+--- Page 12 ---
+指针+函数运用
+【例】组合排序
+int main() {
+int arrA[4] = { -8, 7, 11, 23 };
+const int N = 6;
+int arrB[N];
+for (int i = 0; i < N; ++i)
+arrB[i] = rand() % 21;
+Sort(arrB, N); // 调用Sort函数，对数组arrB进行升序排列
+int* arrC = 0; // 合并后的动态数组首地址
+int sizeC = 0; // 合并后的数组大小
+arrC = Merge(arrA, 4, arrB, N, &sizeC); // 调用Merge函数
+cout << "合并后:" << endl;
+for (int i = 0; i < sizeC; ++i)
+cout << setw(6) << arrC[i] << " ";
+cout << endl;
+delete[] arrC; //释放动态数组空间
+system("pause");
+return 0;
+}
+12
+--- Page 13 ---
+工程运用+一维数组+字符串
+要点：
+• 指针的定义格式、解引用格式
+• 指针和数组名的对应关系
+• 字符串指针移动
+• 字符和ASCII码的关系
+• 指针或字符串遍历字符串
+• int strlen(const char* s)函数求字符串长度不包含‘\0’
+13
+--- Page 14 ---
+工程运用+一维数组+字符串
+【例】字符串复合加密
+void encode(char* dest, const char* source, int step) {
+while (*source != '\0') { // 通过指针遍历字符串
+if (*source >= 'A' && *source <= 'Z') {
+*dest = (*source - 'A' + step) % 26 + 'A';
+} // 字符就是ASCII码，和整型数是等效的
+else if (*source >= 'a' && *source <= 'z') {
+*dest = (*source - 'a' + step) % 26 + 'a';
+}
+else {
+*dest = *source;
+}
+source++; // 指针移动遍历字符串
+dest++;
+}
+*dest = '\0';
+}
+14
+--- Page 15 ---
+工程运用+一维数组+字符串
+char* transform(const char* pCodeBefore) {
+【例】字符串复合加密
+char* pCodeAfter; // 保存二次加密后的字符串
+int length = strlen(pCodeBefore); // 常用的字符串处理函数
+pCodeAfter = new char[length * 3 + 1]; // 加上末尾的'\0'
+int asciiValue;
+char temp[3];
+char* ptr = pCodeAfter; // 要新定义一个指针操作pCodeAfter
+while (*pCodeBefore != '\0') { // 通过指针遍历字符串
+asciiValue = *pCodeBefore;
+temp[0] = '0' + asciiValue / 100; // 读取三位数的每一位
+temp[1] = '0' + (asciiValue / 10) % 10;
+temp[2] = '0' + asciiValue % 10;
+for (int i = 0; i < 3; i++) {
+*ptr = temp[i];
+ptr++; // 指针移动遍历字符串
+}
+pCodeBefore++; // 指针移动遍历字符串
+}
+*ptr = '\0';
+return pCodeAfter; // 返回加密后的字符串首地址
+} 15
+--- Page 16 ---
+工程运用+一维数组+字符串
+【例】字符串复合加密
+int main() {
+const char* original = "AaCbctz";
+char encoded[100];
+encode(encoded, original, 2); // 指针参数传递
+cout << "滑动加密前: " << original << endl;
+cout << "滑动加密后: " << encoded << endl;
+char* asciiEncoded = nullptr; // 保存二次加密后字符串首地址
+// 返回动态创建的字符数组首地址，保存到asciiEncoded中
+asciiEncoded = transform(encoded); // 指针传参，返回指针
+cout << "二次加密后: " << asciiEncoded << endl;
+delete[] asciiEncoded; // 释放动态存储空间
+return 0;
+}
+16
+--- Page 17 ---
+工程运用+二维数组（一维数组模拟访问）
+• 一维数组对应于向量，二维数组对应于矩阵(Matrix)
+• 定义方法：
+《存储类型》 类型 数组名[常量行表达式] [常量列表达式]；
+例：int mat[3][6];
+• 数组元素下标从0开始，按行优先的方式存储
+mat[0][0] mat[0][1] mat[0][2] mat[0][3] mat[0][4] mat[0][5]
+mat[1][0] mat[1][1] mat[1][2] mat[1][3] mat[1][4] mat[1][5]
+mat[2][0] mat[2][1] mat[2][2] mat[2][3] mat[2][4] mat[2][5]
+设a数组m行n列，每个元素占b个字节，a[i][j] 的存储位置为:
+a[0][0]的存储位置 + (i*n+j)*b;
+• 考试涉及：通过一级指针去访问二维数组。
+17
+--- Page 18 ---
+工程运用+二维数组（一维数组模拟访问）
+【例】用一维数组模拟二维数组
+int main() {
+const int rows = 3;
+const int cols = 4;
+int* flat = new int[rows * cols]; // 用一维数组模拟二维数组
+for (int i = 0; i < rows; i++) { // 初始化：使用二维思维访问
+for (int j = 0; j < cols; j++) {
+flat[i * cols + j] = i * 10 + j; // 计算一维索引
+}
+}
+// 访问元素 (1, 2) 输出: 12
+cout<<"Element at (1, 2): "<< flat[1 * cols + 2] <<endl;
+// 遍历所有元素
+for (int i = 0; i < rows * cols; i++) {
+cout << flat[i] << " ";
+}
+cout << endl;
+delete[] flat;
+return 0;
+} 18
+--- Page 19 ---
+工程运用+二维数组（一维数组模拟访问）
+【例】一级指针访问二维数组
+int main() {
+int arr[3][4] = {{1, 2, 3, 4},{5, 6, 7, 8},{9, 10, 11, 12}};
+// 获取一级指针指向数组首元素
+int* p = arr[0]; // 或者直接写 int* p = &arr[0][0];
+// 通过指针算术访问二维数组
+// 访问 arr[1][2]（值为7）
+cout << "arr[1][2] = " << *(p + 1 * 4 + 2) << endl;
+// 计算公式：*(p + i * cols + j)
+// 遍历整个二维数组
+for (int i = 0; i < 3; i++) {
+for (int j = 0; j < 4; j++) {
+// 两种等价写法：
+cout << *(p + i * 4 + j) << " "; // 指针算术
+// cout << p[i * 4 + j] << " "; // 数组下标
+}
+cout << endl;
+}
+return 0;
+}
+19
+--- Page 20 ---
+期末考试范围
+题1：基础题，1星，数值方法；（教师5-10分钟可以答完）
+题2：基础题，2星，数组+函数运用+简单递归；（教师10-15
+分钟可以答完）
+题3：基础题，3星，指针+函数运用；（教师10-15分钟可以
+答完）
+-----------------------------
+题4：进阶题，4星，工程运用+一维数组+字符串（教师20分
+钟可以答完）
+题5：进阶题，5星，工程运用+二维数组（一维数组模拟访问）
+（教师20分钟可以答完）
+1-2星问语法，3-4星问工程规范、设计思想，4-5星问方案辨析
+20
+--- Page 21 ---
+谢谢各位‘程序猿/媛’
+这学期的debug合作！
+王武森
+15150698528
+wswang@seu.edu.cn
+动力楼437
+21

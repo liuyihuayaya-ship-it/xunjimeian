@@ -1,0 +1,567 @@
+FILE: ch3_函数1128.pdf
+PAGES: 35
+
+
+--- Page 1 ---
+程序设计实践 A(I)
+函数
+王武森
+电气工程学院
+15150698528
+wswang@seu.edu.cn
+1
+--- Page 2 ---
+前情回顾
+函数返回值
+return 表达式；
+保证函数的所有执行路径都有返回出口
+函数声明
+《函数返回值类型》函数名 (《形参表》);
+值传递
+实参不会发生任何改变
+引用传递
+定义：类型& 引用变量名 = 已定义过的变量名;
+➢ 引用必须初始化 ➢ 引用在初始化后，不可以改变
+void swap(int& num1, int& num2);
+2
+--- Page 3 ---
+前情回顾
+头文件与多文件结构
+➢ 创建项目
+➢ 添加后缀名为.h的头文件
+➢ 添加后缀名为.cpp的源文件
+➢ 在头文件中包含外部依赖的标准库或其他头文件
+➢ 在头文件中写函数声明、外部变量声明(多个cpp共用的变量)
+➢ 在源文件中包含对应头文件
+➢ 在源文件中写函数定义、外部变量和非共用变量定义
+➢ 在包含main()函数的源文件中包含头文件
+3
+--- Page 4 ---
+01 函数的定义与调用
+C
+02 函数的参数传递、返回值及函数声明
+O
+03 存储机制、作用域及生命期
+N
+04 函数调用机制
+T
+课程内容
+E
+05 函数的递归调用
+N
+06 函数的重载、内联及默认参数
+T
+S 07 头文件与多文件结构
+08 编译预处理
+4
+--- Page 5 ---
+储存机制、作用域、生命期
+1 C++的内存布局
+2 全局变量和局部变量
+3
+3 作用域与标识符可见性
+3
+4 存储类型及生命期
+5
+--- Page 6 ---
+C++程序的内存布局
+堆区：存放与指针相关的动态数据。分
+堆区 (动态数据)
+配时不处理内存
+栈区（函数局部数据） 栈区：存放局部变量，如函数中的变量
+(包括形参)等；分配时不处理内存，即
+（main()函数局部数据）
+变量取随机值
+全局数据区：存放全局变量和静态变量，
+全局数据区(全局、静态)
+分配该区时内存初始化为零
+代码区（程序代码）
+代码区：存放程序代码的二进制
+6
+--- Page 7 ---
+全局变量与局部变量
+全局变量 局部变量
+（global variable） （local variable）
+定义 在所有函数之外定 在函数内(包括main
+堆区 (动态数据)
+义的变量 函数)或块内的变量
+存储位置 全局数据区 栈区
+初始化 如果定义时未给出 局部变量在定义时
+栈区（函数局部数据）
+初始化值，则初始 若未初始化，其值
+化为全0 为随机数 （main()函数局部数据）
+作用域 全局变量在定义处 只能在它所在的块
+之后的任何位置都 内才能被访问
+全局数据区(全局、静
+是可以访问的
+态)
+生命期 Main函数结束被释 程序运行到它所在
+放 的块时自动建立，
+代码区（程序代码）
+该块执行完毕后，
+局部变量所占空间
+即被自动释放
+7
+--- Page 8 ---
+全局变量与局部变量
+【例】 观察全局变量和局部变量的地址分配
+#include <iostream>
+using namespace std;
+int gValA = 10; //全局变量
+int gValB = 10; //全局变量
+int main() {
+int lValA = 10; //局部变量
+int lValB = 10; //局部变量
+//打印地址
+cout << "全局变量gValA地址为：" << &gValA << endl;
+cout << "全局变量gValB地址为：" << &gValB << endl;
+cout << "局部变量lValA地址为：" << &lValA << endl;
+cout << "局部变量lValB地址为：" << &lValB << endl;
+return 0;
+}
+8
+--- Page 9 ---
+全局变量与局部变量
+【例】 多个函数使用全局变量的例子
+#include <iostream>
+using namespace std;
+int num = 100; //全局变量
+void func() {
+num *= 2;
+}
+int main() {
+num *= 2;
+cout << num << endl;
+func();
+cout << num << endl;
+return 0;
+}
+9
+--- Page 10 ---
+全局变量与局部变量
+【例】 使用局部变量的例子。
+#include <iostream>
+using namespace std;
+void fun() {
+int t = 5; // fun()中的局部变量
+cout << "fun()中的t=" << t << endl;
+}
+int main() {
+float t = 3.5; //main()中的局部变量
+cout << "main()中的t=" << t << endl;
+fun();
+cout << "main()中的t=" << t << endl;
+return 0;
+}
+10
+--- Page 11 ---
+作用域与标识符可见性
+✓ 作用域：
+• 标识符能够被使用的范围
+• 标识符在作用域内才可以被访问(称为可见)。
+✓ 几种作用域
+• 块作用域（block scope)
+块中定义的标识符，作用域在块内。（ 用{ }包起来的都是块 ）
+• 全局作用域（global scope)
+也称文件作用域，定义在所有函数之外的标识符，作用域为从定义处到整个
+源文件结束。文件中定义的全局变量和函数都具有全局作用域。
+• 函数声明域（function declaration scope)
+只在函数的声明中，即仅限于形参括号中。
+11
+--- Page 12 ---
+作用域与标识符可见性
+✓ 局部优先原则
+• 块中嵌套情况下，对于同名局部变量，内层块屏蔽外层块
+中局部变量
+int a;
+int a;
+✓ 域运算符”::”
+• 变量同名，块内局部变量优先
+• 块内可通过”::” 访问同名的全局变量
+int a;
+int a;
+::a
+12
+--- Page 13 ---
+作用域与标识符可见性
+【例】 显示同名变量可见性
+#include <iostream>
+using namespace std;
+int n = 100; // 全局变量
+int main() {
+int i = 200, j = 300; // main()中的局部变量
+cout << n << '\t' << i << '\t' << j << endl;
+{
+int i = 400, j = 500, n; // {}块中的局部变量
+n = i + j;
+cout << n << '\t' << i << '\t' << j << endl;
+cout << ::n << endl; // 访问全局变量
+}
+n = i + j;
+cout << n << '\t' << i << '\t' << j << endl;
+return 0;
+}
+13
+--- Page 14 ---
+存储类型及生命期
+✓ 存储类型
+变量存储类型决定了变量的存储区域；
+存储区域不同，变量的生命期也不同。
+分类：自动、静态、外部
+✓ 生命期
+变量从获得空间到空间释放之间的期间
+分类：静态生命期、局部生命期、动态生命期
+14
+--- Page 15 ---
+存储类型及生命期
+存储类型分类
+自动 静态 外部
+（默认） static extern
+指的是常规定义的局部变量。
+存储在栈区。
+register 关键字将变量保存在寄存器中（新版C++已经弃用）。
+auto 关键字在新版C++中用于类型推断（Type Inference）
+15
+--- Page 16 ---
+存储类型及生命期
+auto
+#include <iostream>
+using namespace std;
+auto gVal = 5.3;
+auto sum(int n) {
+auto i = 0, s = 0;
+for (i = 1; i <= n; i++)
+s += i;
+return s;
+}
+int main() {
+cout << gVal << endl;
+cout << sum(100) << '\n';
+return 0;
+}
+16
+--- Page 17 ---
+存储类型及生命期
+存储类型分类
+自动 静态 外部
+（默认） static extern
+✓ 静态变量用static定义(static int Val = 10;)。
+✓ 静态变量存储在全局数据区，具有全局生命期
+• 如未显式初始化，则等效初始化为0；
+• 如果显式初始化，则初始化只在该块第一次执行时完
+成。
+✓ 局部静态变量具有局部作用域，但具有全局生命期。
+✓ 全局静态变量具有全局作用域和全局生命期。
+17
+--- Page 18 ---
+存储类型及生命期
+【例】 观察静态变量的地址分配
+#include <iostream>
+using namespace std;
+int gValA = 10; //全局变量
+int gValB = 10; //全局变量
+static int gValC = 10; //静态全局变量
+static int gValD = 10; //静态全局变量
+int main() {
+int lValA = 10; //局部变量
+int lValB = 10; //局部变量
+static int lValC = 10; //静态局部变量
+static int lValD = 10; //静态局部变量
+cout << "全局变量gValA地址为：" << &gValA << endl;
+cout << "全局变量gValB地址为：" << &gValB << endl;
+cout << "静态全局变量gValC地址为：" << &gValC << endl;
+cout << "静态全局变量gValD地址为：" << &gValD << endl;
+cout << "局部变量lValA地址为：" << &lValA << endl;
+cout << "局部变量lValB地址为：" << &lValB << endl;
+cout << "静态局部变量lValC地址为：" << &lValC << endl;
+cout << "静态局部变量lValD地址为：" << &lValD << endl;
+return 0;
+}
+18
+--- Page 19 ---
+存储类型及生命期
+【例】 自动变量和静态变量的区别
+#include <iostream>
+using namespace std;
+int staticTestFunc() {
+static int t = 100;
+t++;
+return t;
+}
+int autoTestFunc() {
+int t = 100;
+t++;
+return t;
+}
+int main() {
+int i;
+for (i = 0; i < 5; i++)
+cout << autoTestFunc() << '\t';
+cout << endl;
+for (i = 0; i < 5; i++)
+cout << staticTestFunc() << '\t';
+cout << endl;
+return 0;
+}
+19
+--- Page 20 ---
+存储类型及生命期
+D
+【例】 下面程序的正确执行结果为
+#include <iostream>
+using namespace std; A) 7 7 7
+int func(int);
+B) 7 10 13
+int main() {
+C) 7 9 11
+int a = 2, i;
+D) 7 8 9
+for (i = 0; i < 3; i++)
+cout << func(a) << " ";
+cout << endl;
+return 0;
+}
+int func(int a) {
+int b = 0;
+static int c = 3;
+b++;
+c++;
+return (a + b + c);
+}
+20
+--- Page 21 ---
+存储类型及生命期
+存储类型分类
+自动 静态 外部
+（默认） static extern
+✓ 引入的目的：同一工程的多个文件之间共享某些变量和函数
+✓ 在工程的一个源文件中定义的全局变量和函数，其作用域可延伸到
+工程的其他文件
+• 对于变量，应在使用前用 extern 作外部声明
+• 函数通常省略 extern
+✓ 外部变量声明编译系统不再分配存储空间。
+✓ 全局变量或函数用 static 修饰，变成静态全局变量和静态函数，
+作用域被限制在当前文件中，无法被外部访问
+21
+--- Page 22 ---
+存储类型及生命期
+【例】 外部存储类型的例子。程序含两个源文件main.cpp function.cpp
+// main.cpp
+#include <iostream>
+using namespace std;
+void funcA(); //外部函数声明，等价于extern void funcA();
+int n; //全局变量定义
+int main() {
+funcA(); //funcA()定义在文件function.cpp中
+cout << "n = " << n << endl;
+return 0;
+}
+// function.cpp
+extern int n; //外部变量声明，n定义在main.cpp中
+void funcA() {
+n = 3;
+}
+22
+--- Page 23 ---
+存储类型及生命期
+【例】 外部存储类型的例子。规范写法
+// main.cpp
+#include <iostream>
+#include "function.h"
+using namespace std;
+int n; //全局变量定义
+int main() {
+funcA(); //funcA()定义在文件function.cpp中
+cout << "n = " << n << endl;
+return 0;
+}
+// function.h
+extern int n; //外部变量声明，n定义在main.cpp中
+void funcA();
+// function.cpp
+#include "function.h"
+void funcA() {
+n = 3;
+}
+23
+--- Page 24 ---
+存储类型及生命期
+【例】 采用牛顿迭代法，求a的平方根。
+Demo
+24
+--- Page 25 ---
+函数的重载、内联及默认参数
+1 函数重载
+2
+默认参数
+3 内联函数
+25
+--- Page 26 ---
+函数重载
+思考
+#include <iostream>
+using namespace std;
+✓ 重载的引入：
+int sum(int a, int b)
+{
+需要定义几个功能相似，而参数
+return a + b;
+}
+类型不同的函数
+int main() {
+int s1; double s2;
+函数重载的好处在于增强程序可
+s1 = sum(3, 4);
+s2 = sum(3.4, 4.5);
+读性
+cout <<s1<<'\n'<<s2;
+}
+例：求和函数对应不同的参数类型可定义如下几个重载函数：
+int sum(int a, int b) {……}
+double sum(double a, double b) {……}
+float sum(float a, float b, float c) {……}
+26
+--- Page 27 ---
+函数重载
+int sum(int a, int b) {……}
+double sum(double a, double b) {……}
+float sum(float a, float b, float c) {……}
+函数调用时如何知道调用哪个函数？
+✓
+重载匹配：
+• 编译器根据实参的类型调用相应的函数
+✓ 如果有严格匹配的函数，就调用该函数；
+✓ 参数内部转换后如果匹配，调用该函数；
+✓ 通过用户定义的类型转换寻求匹配。
+✓
+注意：
+• 在定义重载函数时必须保证形参的类型或数量不同，
+仅仅返回值类型不同是不行的。
+27
+--- Page 28 ---
+函数重载
+3+5 =
+【例】重载函数的应用
+调用 函数 int
+sum(3,5 ) sum(3,5 )
+int sum(int a,int b){
+return a+b;
+2.2+5.6 = 7.8 return
+}
+8
+double sum(double a,double b){
+return a+b;
+函数double
+调用
+}
+sum(2.2,5.6 )
+sum(2.2,5.6 )
+float sum(float a,float b,float c){
+return a+b+c;
+} return
+3.5+4+8 = 15.5
+7.8
+int main(){
+cout<<"3+5="<<sum(3,5)<<endl; 调用
+函数float
+sum(3.5, 4, 8 )
+cout<<"2.2+5.6="<<sum(2.2,5.6)<<endl;
+sum(3.5, 4.0, 8.0 )
+cout<<"3.5+4+8="<<sum(3.5,4,8)<<endl;
+return 0;
+结束
+}
+return
+15.5
+28
+--- Page 29 ---
+默认参数
+✓ 默认参数的引入：
+• 一般情况下，形参和实参的个数必须一致
+• 在定义或声明函数时可定义形参的默认值，这样形参和实参的
+个数可以不一致
+• 调用时默认形参对应的实参若给出，按给出实参调用；若未给
+出，则按默认值调用。
+29
+--- Page 30 ---
+默认参数
+【例】 默认参数的应用
+#include <iostream>
+using namespace std;
+int sum(int n = 100) {
+int i, s = 0;
+for (i = 1; i <= n; i++)
+s += i;
+return s;
+}
+int main() {
+cout << sum(50) << '\n';
+cout << sum() << '\n';
+return 0;
+}
+30
+--- Page 31 ---
+默认参数
+✓ 使用要点：
+默认参数可以有多个，但所有默认参数必须放在参数表的右侧，即
+先定义所有的非默认参数，再定义默认参数
+例：
+int add(int x, int y=5, int z=6); //正确
+int add(int x=1, int y=5, int z); //错误
+int add(int x=1, int y, int z=6); //错误
+add(1)、 add(1,2)、 add(1,2,3)
+分别如何传递参数？
+31
+--- Page 32 ---
+默认参数
+✓ 使用要点：
+一个形参只能被指定一次默认值，不能在声明和定义中都指定，即
+使默认值一样也不行
+#include <iostream>
+using namespace std;
+int add(int x, int y = 5, int z = 6);
+int main() {
+cout << add(1) << endl;
+return 0;
+}
+int add(int x, int y = 5, int z = 6) {
+return x + y + z;
+}
+32
+--- Page 33 ---
+函数的重载、内联及默认参数
+1 函数重载
+2
+默认参数
+3 内联函数
+33
+--- Page 34 ---
+内联函数
+✓ 内联函数的引入：
+• 执行函数调用时，系统要完成建立栈空间，保护现场，传递
+参数等工作，如果函数体很简单，系统时间和空间开销较大
+• 内联的目的：提高程序运行效率
+✓ 内联函数的定义
+• 声明和定义时用 inline 修饰，如：inline int func( );
+✓ 结构简单、使用频度高的函数才能申请内联，最终是否按内联
+方式工作取决于系统。
+34
+--- Page 35 ---
+内联函数
+【例】 判断输入的字符是否是数字
+inline bool IsNumber(char ch) {
+return (ch >= '0' && ch <= '9') ? true : false;
+}
+ch = myChar;
+(ch >= '0' && ch <= '9') ? true : false;
+int main() {
+char myChar;
+while (cin.get(myChar), myChar != '\n') {
+if (IsNumber(myChar))
+cout << "是数字字符" << endl;
+else
+cout << "不是数字字符" << endl;
+}
+return 0;
+}
+35

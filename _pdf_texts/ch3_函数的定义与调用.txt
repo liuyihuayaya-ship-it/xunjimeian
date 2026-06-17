@@ -1,0 +1,331 @@
+FILE: ch3_函数的定义与调用.pdf
+PAGES: 25
+
+
+--- Page 1 ---
+程序设计实践 A(I)
+王武森
+电气工程学院
+15150698528
+wswang@seu.edu.cn
+1
+--- Page 2 ---
+前情回顾
+• break语句
+• 跳出switch语句
+• 跳出整个循环
+• continue语句
+• 结束单次循环
+2
+--- Page 3 ---
+前情回顾
+#include <fstream>
+1．说明一个文件流对象
+ifstream ifile； //定义输入文件
+ofstream ofile； //定义输出文件
+2．打开文件
+ifile.open(“D:\\infile.txt”)； //打开输入文件
+ofile.open(“outfile.txt”)； //打开输出文件
+3．对文件进行读写操作。
+ifile >> a; ofile << a;
+ifile.get(a); ifile.getline(a,n);
+4．关闭文件
+ifile.close(); ofile.close();
+3
+--- Page 4 ---
+前情回顾
+【例】将百鸡问题计算结果存入文件。
+#include <fstream>
+#include <iomanip>
+using namespace std;
+int main() {
+int i, j, k;
+ofstream ofile;
+ofile.open("Result.txt"); //打开文件
+ofile << " 公鸡 母鸡 小鸡" << endl; //输出表头
+for (i = 0; i <= 20; i++)
+for (j = 0; j <= 33; j++) {
+k = 100 - i - j;
+if ((5 * i + 3 * j + k / 3 == 100) && (k % 3 == 0))
+ofile << setw(6) << i << setw(10) << j
+<< setw(10) << k << endl; //写入文件
+}
+ofile.close(); //关闭文件
+return 0;
+}
+4
+--- Page 5 ---
+前情回顾
+• 枚举法
+遍历所有可能性
+• 递推法
+分析后一项与前一项或前几项的递推关系
+• 迭代法
+确定迭代计算关系式，即循环体中写什么内容
+5
+--- Page 6 ---
+前情回顾
+int main() {
+//定义变量,x输入字母,lowFlag小写标记,shift用于计算行数,rowNum行数
+char x, space = ' ';
+int lowFlag = 0, shift = 64, rowNum = 0, row = 0, column = 0;
+cout << "Input a letter: "; cin >> x; cout << endl;
+//判断是大写字母还是小写字母,先统一转换成大写字母并标记lowFlag
+if (x >= 97 && x <= 122) {
+lowFlag = 1;
+x = x - 32;
+}
+rowNum = x - shift; //求行数
+for (row = 1; row <= rowNum; row++) { //打印
+for (column = 1; column <= rowNum - row; column++)
+cout << space;
+for (column = 1; column <= 2 * row - 1; column += 2)
+cout << (char)(row + shift + lowFlag * 32) << space;
+cout << endl;
+}
+return 0;
+}
+6
+--- Page 7 ---
+前情回顾
+【例】输入三个整型数，用递推法求它们的最大公约数和最小公倍数。
+对于两个整数的情况，假设有两个整数 num1 和 num2，最大公约数算法的步骤：
+• 步骤1：计算 num1 除以 num2 的余数，记为 rem（即 rem = num1 % num2）。
+• 步骤2：如果 rem = 0，则 num2 就是最大公约数。
+• 步骤3：如果 rem ≠ 0，则令 num1 = num2，num2 = rem，并重复步骤1。
+#include <iostream>
+using namespace std;
+int main() {
+int num1 = 0, num2 = 0, LCM12 = 0; // 输入的两个数和最小公倍数
+int num1Temp = 0, num2Temp = 0, temp = 0; // 计算用的中间变量
+cout << "请输入两个整数: "; cin >> num1 >> num2;
+num1Temp = num1; num2Temp = num2;
+do {
+temp = num1Temp % num2Temp;
+num1Temp = num2Temp;
+num2Temp = temp;
+} while (temp != 0);
+LCM12 = num1 * num2 / num1Temp;
+cout << num1 << "和" << num2 << "的最大公约数是: " << num1Temp << endl;
+cout << num1 << "和" << num2 << "的最小公倍数是: " << LCM12 << endl;
+return 0;
+7
+}
+--- Page 8 ---
+前情回顾
+【例】输入三个整型数，用递推法求它们的最大公约数和最小公倍数。
+8
+--- Page 9 ---
+程序设计实践 A(I)
+函数
+王武森
+电气工程学院
+15150698528
+wswang@seu.edu.cn
+9
+--- Page 10 ---
+01 函数的定义与调用
+C
+02 函数的参数传递、返回值及函数声明
+O
+03 存储机制、作用域及生命期
+N
+04 函数调用机制
+T
+课程内容
+E
+05 函数的递归调用
+N
+06 函数的重载、内联及默认参数
+T
+S 07 头文件与多文件结构
+08 编译预处理
+10
+--- Page 11 ---
+3.1 函数的定义与调用
+1 函数概述
+2
+函数定义
+3 函数调用
+11
+--- Page 12 ---
+3.1 函数的定义与调用 为什么要用函数？
+计算最大公约数
+ 相似的代码重复了三次
+ 需要定义一堆中间变量保存计算结果
+12
+--- Page 13 ---
+3.1 函数的定义与调用 为什么要用函数？
+13
+--- Page 14 ---
+3.1 函数的定义与调用 为什么要用函数？
+计算最大公约数
+ 相似的代码重复了三次
+ 需要定义一堆中间变量保存计算结果
+14
+--- Page 15 ---
+3.1 函数的定义与调用 为什么要用函数？
+计算最大公约数
+✓ 定义函数避免重复的代码
+✓ 不需要中间变量
+15
+--- Page 16 ---
+3.1 函数的定义与调用
+3.1.1 函数概述
+函数概念的引入
+• 实现复杂任务的分解，体现模块化程序设计思想
+• 函数是C++程序的基本组成模块
+main( )
+fun1( ) fun2( ) fun3( )
+funa( ) funb( ) func( )
+• main()函数，是程序执行的入口，它可以调用其他函数，但不可以被调用
+• 其他一般函数既可以调用也可以被调用
+16
+--- Page 17 ---
+3.1 函数的定义与调用
+3.1.1 函数概述
+库函数和用户自定义函数
+库函数 或 标准函数
+• 由系统预定义。
+如：标准输入输出库(iostream) 、数学函数库(cmath)、字符串处理库(cstring,
+string) 、I/O文件库(fstream)等。
+sqrt( ), fabs( ), pow( ), strcpy_s( ), strlen( ), open( ), close(),...
+• 使用库函数需在程序中#include对应头文件。
+自定义函数
+• 用户根据需要将某个具有相对独立功能的程序定义为函数
+17
+--- Page 18 ---
+3.1 函数的定义与调用
+3.1.2 函数的定义
+函数在使用时被看成 “黑匣子”，使用者只关心对一组原始数据（输
+入数据）处理的结果（输出数据）。
+函数头定义 “做什么”：输入/输出数据是什么，函数名是什么；
+函数体描述 “如何做”：函数的算法实现
+int getGCD(int num1, int num2) 函数头：
+{
+• 定义函数名
+int temp = 0;
+• 定义形式参数，即输入数据
+do {
+temp = num1 % num2; • 定义返回类型，即输出数据类型
+num1 = num2;
+函数体：
+num2 = temp;
+• 实现计算最大公约数的算法
+} while (temp != 0);
+return num1;
+}
+18
+--- Page 19 ---
+3.1 函数的定义与调用
+3.1.2 函数的定义
+无参函数定义格式为：
+《数据类型》函数名(《void》){函数体}
+数据类型：函数返回值类型，没有返回值应将返回值类型定义为void
+函数名：采用合法标识符表示
+对无参函数: 参数括号中的void可略，括号不能省略
+函数体由一系列语句组成
+#include <cstdlib>
+void TableHead() {
+int rand(){
+cout << "*************" << endl;
+...
+cout << "* example *" << endl;
+...
+cout << "*************" << endl;
+}
+}
+19
+--- Page 20 ---
+3.1 函数的定义与调用
+3.1.2 函数的定义
+有参函数定义格式为：
+《数据类型》函数名 (参数类型1 形式参数1《,参数类型2 形
+式参数2,…》){函数体}
+形式参数简称形参，只能是变量名，不允许是常量或表达式；
+各参数即使类型相同也必须分别加以说明。
+int getGCD(int num1, int num2) { int max(int a, int b) {
+int temp = 0; return (a >= b ? a : b);
+}
+do {
+temp = num1 % num2;
+num1 = num2;
+num2 = temp;
+} while (temp != 0);
+return num1;
+}
+20
+--- Page 21 ---
+3.1 函数的定义与调用
+3.1.2 函数的定义
+定义函数时究竟哪些变量应当作为函数的形参？
+哪些变量应当定义在函数体内？
+原则：函数在使用时被看成 “黑匣子”，使用者只关心对一组原
+始数据（输入数据）处理的结果（输出数据）。
+函数
+输入：形参 输出：返回值
+需要从外界输入的变量 → 定义在形参中
+实现算法所需用的中间变量 → 定义在函数体内
+21
+--- Page 22 ---
+3.1 函数的定义与调用
+3.1.3 函数调用
+函数调用：使程序转去执行函数体。
+除main函数外，其他任何函数都不能
+单独作为程序运行，只能通过被主函
+数直接或间接调用。
+无参函数 的调用格式：
+函数名 ( )
+有参函数 的调用格式：
+函数名(实际参数表)
+实参：实际参数，可以是常量、变量
+•
+或表达式
+实参与形参匹配：个数、类型、次序
+•
+22
+--- Page 23 ---
+3.1 函数的定义与调用
+23
+--- Page 24 ---
+案例分析
+【例】输入两个实数，输出其中较大的数。其中求两个实数中的较
+大数用函数完成。
+float Max(float a,float b){
+return (a>=b ? a : b);
+main( )函数
+}
+int main(){
+调用 函数
+float x, y;
+Max(2.5,4.7 ) Max(2.5,4.7 )
+cout << "输入两个实数：";
+cin >> x >> y;
+cout << x << “和”<< y <<“中较大
+主程序
+数为” << Max(x, y) << endl;
+后续语句 return 4.7
+return 0;
+}
+若函数Max的形参和返回值为int型，结果如何？
+24
+--- Page 25 ---
+案例分析
+【例】输入字符串，输出字符串的长度。其中求字符串的长度用函数完成。
+#include <iostream>
+using namespace std;
+int stringLen(char str[]) {
+int len = 0;
+while (str[len])
+len++;
+return len;
+}
+int main() {
+char myStr[80];
+cout << "输入字符串：";
+cin.getline(myStr, 80);
+int length = stringLen(myStr);
+cout << myStr << "的长度为：" << length << endl;
+return 0;
+}
+25

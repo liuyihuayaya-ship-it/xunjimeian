@@ -1,0 +1,312 @@
+import os
+
+content = r'''(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     11497,        352]
+NotebookOptionsPosition[     10245,        328]
+NotebookOutlinePosition[     10603,        344]
+CellTagsIndexPosition[     10560,        341]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+(* ====== 实验一：六种标准二次曲面 ======
+   依次运行下面 6 个格子，每个格子生成一张图
+   ====== *)
+
+Cell[TextData[{
+  "========== 实验一  习题1：作出各种标准二次曲面的图形 ==========\n",
+  "依次运行下面 6 个格子，每个格子生成一张图，对应报告图1-1 到 图1-6"
+}], "Text", FontSize->16, FontWeight->"Bold"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe1-1  \:692d\:7403\:9762 (Ellipsoid)", "  ", "*)"}],
+  "\[IndentingNewLine]",
+  RowBox[{"ParametricPlot3D", "[",
+   RowBox[{
+    RowBox[{"{",
+     RowBox[{
+      RowBox[{
+       RowBox[{"Sin", "[", "u", "]"}], "*",
+       RowBox[{"Cos", "[", "v", "]"}]}], ",",
+      RowBox[{
+       RowBox[{"Sin", "[", "u", "]"}], "*",
+       RowBox[{"Sin", "[", "v", "]"}]}], ",",
+      RowBox[{"2", "*",
+       RowBox[{"Cos", "[", "u", "]"}]}]}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"u", ",", "0", ",", "Pi"}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"v", ",", "0", ",",
+      RowBox[{"2", "*", "Pi"}]}], "}"}], ",",
+    RowBox[{"PlotPoints", "\[Rule]", "30"}]}], "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe1-2  \:692d\:5706\:629b\:7269\:9762 (Elliptic paraboloid)", "  ",
+   "*)"}], "\[IndentingNewLine]",
+  RowBox[{"ParametricPlot3D", "[",
+   RowBox[{
+    RowBox[{"{",
+     RowBox[{
+      RowBox[{"u", "*",
+       RowBox[{"Cos", "[", "v", "]"}]}], ",",
+      RowBox[{"2", "*", "u", "*",
+       RowBox[{"Sin", "[", "v", "]"}]}], ",",
+      RowBox[{"u", "^", "2"}]}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"u", ",", "0", ",", "2"}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"v", ",", "0", ",",
+      RowBox[{"2", "*", "Pi"}]}], "}"}], ",",
+    RowBox[{"PlotPoints", "\[Rule]", "30"}]}], "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe1-3  \:53cc\:66f2\:629b\:7269\:9762(\:9a6c\:978d\:9762)  Saddle",
+   "  ", "*)"}], "\[IndentingNewLine]",
+  RowBox[{"Plot3D", "[",
+   RowBox[{
+    RowBox[{
+     RowBox[{"x", "^", "2"}], "-",
+     RowBox[{"y", "^", "2"}]}], ",",
+    RowBox[{"{",
+     RowBox[{"x", ",",
+      RowBox[{"-", "2"}], ",", "2"}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"y", ",",
+      RowBox[{"-", "2"}], ",", "2"}], "}"}], ",",
+    RowBox[{"PlotPoints", "\[Rule]", "30"}]}], "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe1-4  \:5355\:53f6\:53cc\:66f2\:9762 (Hyperboloid of one sheet)",
+   "  ", "*)"}], "\[IndentingNewLine]",
+  RowBox[{"ParametricPlot3D", "[",
+   RowBox[{
+    RowBox[{"{",
+     RowBox[{
+      RowBox[{
+       RowBox[{"Sec", "[", "u", "]"}], "*",
+       RowBox[{"Cos", "[", "v", "]"}]}], ",",
+      RowBox[{
+       RowBox[{"Sec", "[", "u", "]"}], "*",
+       RowBox[{"Sin", "[", "v", "]"}]}], ",",
+      RowBox[{"Tan", "[", "u", "]"}]}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"u", ",",
+      RowBox[{
+       RowBox[{"-", "Pi"}], "/", "4"}], ",",
+      RowBox[{"Pi", "/", "4"}]}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"v", ",", "0", ",",
+      RowBox[{"2", "*", "Pi"}]}], "}"}], ",",
+    RowBox[{"PlotPoints", "\[Rule]", "30"}]}], "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe1-5  \:53cc\:53f6\:53cc\:66f2\:9762 (Hyperboloid of two sheets)",
+   "  ", "*)"}], "\[IndentingNewLine]",
+  RowBox[{"ParametricPlot3D", "[",
+   RowBox[{
+    RowBox[{"{",
+     RowBox[{
+      RowBox[{
+       RowBox[{"Sqrt", "[",
+        RowBox[{"1", "+",
+         RowBox[{"u", "^", "2"}]}], "]"}], "*",
+       RowBox[{"Cos", "[", "v", "]"}]}], ",",
+      RowBox[{
+       RowBox[{"Sqrt", "[",
+        RowBox[{"1", "+",
+         RowBox[{"u", "^", "2"}]}], "]"}], "*",
+       RowBox[{"Sin", "[", "v", "]"}]}], ",", "u"}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"u", ",",
+      RowBox[{"-", "1.5"}], ",", "1.5"}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"v", ",", "0", ",",
+      RowBox[{"2", "*", "Pi"}]}], "}"}], ",",
+    RowBox[{"PlotPoints", "\[Rule]", "30"}]}], "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe1-6  \:5706\:9525\:9762 (Cone)", "  ", "*)"}],
+  "\[IndentingNewLine]",
+  RowBox[{"ParametricPlot3D", "[",
+   RowBox[{
+    RowBox[{"{",
+     RowBox[{
+      RowBox[{"u", "*",
+       RowBox[{"Cos", "[", "v", "]"}]}], ",",
+      RowBox[{"u", "*",
+       RowBox[{"Sin", "[", "v", "]"}]}], ",", "u"}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"u", ",",
+      RowBox[{"-", "2"}], ",", "2"}], "}"}], ",",
+    RowBox[{"{",
+     RowBox[{"v", ",", "0", ",",
+      RowBox[{"2", "*", "Pi"}]}], "}"}], ",",
+    RowBox[{"PlotPoints", "\[Rule]", "30"}]}], "]"}]}]], "Input"],
+
+(* ====== 实验二：刀具磨损最小二乘拟合 ======
+   依次运行下面 5 个格子，注释中标了"图2-X"对应报告的截图编号
+   ====== *)
+
+Cell[TextData[{
+  "========== 实验二  习题1：刀具磨损数据的最小二乘拟合 ==========\n",
+  "依次运行下面 5 个格子，每个格子注释标了对应报告哪张截图（图2-1 到 图2-4）"
+}], "Text", FontSize->16, FontWeight->"Bold"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"t", "=",
+   RowBox[{"{",
+    RowBox[{
+    "0", ",", "1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6", ",", "7"}],
+     "}"}]}], ";",
+  RowBox[{"y", "=",
+   RowBox[{"{",
+    RowBox[{
+    "27.0", ",", "26.8", ",", "26.5", ",", "26.3", ",", "26.1", ",", "25.7", ",",
+      "25.3", ",", "24.8"}], "}"}]}], ";",
+  RowBox[{"data", "=",
+   RowBox[{"Table", "[",
+    RowBox[{
+     RowBox[{"{",
+      RowBox[{
+       RowBox[{"t", "[",
+        RowBox[{"[", "i", "]"}], "]"}], ",",
+       RowBox[{"y", "[",
+        RowBox[{"[", "i", "]"}], "]"}]}], "}"}], ",",
+     RowBox[{"{",
+      RowBox[{"i", ",", "1", ",", "8"}], "}"}]}], "]"}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe2-1  ->  \:62a5\:544a\:7b2c1\:5f20\:622a\:56fe: \:6563\:70b9\:56fe",
+   "  ", "*)"}], "\[IndentingNewLine]",
+  RowBox[{"ListPlot", "[",
+   RowBox[{"data", ",",
+    RowBox[{"PlotStyle", "\[Rule]",
+     RowBox[{"PointSize", "[", "0.02", "]"}]}], ",",
+    RowBox[{"AxesLabel", "\[Rule]",
+     RowBox[{"{",
+      RowBox[{"\"\<t (h)\>\"", ",", "\"\<y (mm)\>\""}], "}"}]}]}],
+   "]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe2-2  ->  \:62a5\:544a\:7b2c2\:5f20\:622a\:56fe: \:62df\:5408\:516c\
+\:5f0f", "  ", "*)"}], "\[IndentingNewLine]",
+  RowBox[{"fit", "=",
+   RowBox[{"Fit", "[",
+    RowBox[{"data", ",",
+     RowBox[{"{",
+      RowBox[{"1", ",", "t"}], "}"}], ",", "t"}],
+    "]"}]}]}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe2-3  ->  \:62a5\:544a\:7b2c3\:5f20\:622a\:56fe: \
+\:6563\:70b9+\:62df\:5408\:76f4\:7ebf\:53e0\:52a0\:56fe", "  ", "*)"}],
+  "\[IndentingNewLine]",
+  RowBox[{
+   RowBox[{"p1", "=",
+    RowBox[{"ListPlot", "[",
+     RowBox[{"data", ",",
+      RowBox[{"PlotStyle", "\[Rule]",
+       RowBox[{"PointSize", "[", "0.02", "]"}]}], ",",
+      RowBox[{"DisplayFunction", "\[Rule]", "Identity"}]}], "]"}]}],
+   ";"}]}], "\[IndentingNewLine]",
+RowBox[{
+  RowBox[{"p2", "=",
+   RowBox[{"Plot", "[",
+    RowBox[{"fit", ",",
+     RowBox[{"{",
+      RowBox[{"t", ",", "0", ",", "7"}], "}"}], ",",
+     RowBox[{"DisplayFunction", "\[Rule]", "Identity"}], ",",
+     RowBox[{"PlotStyle", "\[Rule]",
+      RowBox[{"RGBColor", "[",
+       RowBox[{"1", ",", "0", ",", "0"}], "]"}]}]}], "]"}]}],
+  ";"}], "\[IndentingNewLine]",
+RowBox[{"Show", "[",
+  RowBox[{"p1", ",", "p2", ",",
+   RowBox[{"DisplayFunction", "\[Rule]", "$DisplayFunction"}], ",",
+   RowBox[{"AxesLabel", "\[Rule]",
+    RowBox[{"{",
+     RowBox[{"\"\<t (h)\>\"", ",", "\"\<y (mm)\>\""}], "}"}]}]}],
+  "]"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "  ",
+   "\:56fe2-4  ->  \:62a5\:544a\:7b2c4\:5f20\:622a\:56fe: \
+\:62df\:5408\:503c\:4e0e\:8bef\:5dee\:8868", "  ", "*)"}],
+  "\[IndentingNewLine]",
+  RowBox[{
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<t    actual    fitted    error\>\"", "]"}],
+    ";"}],
+   RowBox[{"Do", "[",
+    RowBox[{
+     RowBox[{"Print", "[",
+      RowBox[{
+       RowBox[{"t", "[",
+        RowBox[{"[", "i", "]"}], "]"}], ",", "\"\<    \>\"", ",",
+       RowBox[{"y", "[",
+        RowBox[{"[", "i", "]"}], "]"}], ",", "\"\<    \>\"", ",",
+       RowBox[{"N", "[",
+        RowBox[{
+         RowBox[{"fit", "/.",
+          RowBox[{"t", "\[Rule]",
+           RowBox[{"t", "[",
+            RowBox[{"[", "i", "]"}], "]"}]}]}], ",", "4"}], "]"}], ",",
+       "\"\<    \>\"", ",",
+       RowBox[{"N", "[",
+        RowBox[{
+         RowBox[{
+          RowBox[{"y", "[",
+           RowBox[{"[", "i", "]"}], "]"}], "-",
+          RowBox[{"(",
+           RowBox[{"fit", "/.",
+            RowBox[{"t", "\[Rule]",
+             RowBox[{"t", "[",
+              RowBox[{"[", "i", "]"}], "]"}]}]}], ")"}]}], ",", "4"}],
+        "]"}]}], "]"}], ",",
+     RowBox[{"{",
+      RowBox[{"i", ",", "1", ",", "8"}], "}"}]}],
+    "]"}]}]}]], "Input"]
+},
+WindowSize->{1016, 651},
+WindowMargins->{{216, Automatic}, {Automatic, 124}},
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (2019\:5e744\:67088\
+\:65e5)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)'''
+
+with open('math_exp.nb', 'w', encoding='utf-8') as f:
+    f.write(content)
+print('Written successfully')

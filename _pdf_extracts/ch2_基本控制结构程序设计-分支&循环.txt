@@ -1,0 +1,770 @@
+Total pages: 44
+
+===== PAGE 1 =====
+计算机程序设计(上)
+基本控制结构程序设计
+王武森
+电气工程学院
+15150698528
+wswang@seu.edu.cn
+1
+===== PAGE 2 =====
+1.3 C++基础语法—基本运算符
+运算符、优先级、结合性
+算术运算符：+ - * / %
+赋值运算符： = += -= *= /=
+自增/自减 ： ++ --
+关系运算符：> < >= <= == !=
+逻辑运算符： ！ && ||
+位运算符： ~ >> << & | ^
+其他运算符：条件运算符 逗号运算符 sizeof运算符
+2
+===== PAGE 3 =====
+前情回顾
+数组: 一个单一数据类型元素的集合
+定义格式：
+◼
+《存储类型》 数据类型 数组名[常量]
+注意数组的大小：即数组中元素的个数，用常量表示
+◼
+数组初始化
+◼
+int a[5] = {10,20,30,40,50}; int a[] = {4,3,2,1};
+单个元素并没有被命名，用下标变量表示数据元素，数组元素
+◼
+数组名[下标表达式]
+访问方式：通过下标变量访问数组元素，下标从 0 开始
+◼
+存储方式：各个元素连续存储
+◼
+3
+===== PAGE 4 =====
+前情回顾
+字符数组：数组中的元素为字符
+char string1[10];
+char city_name1[] = {′N′,′a′,′n′,′j′,′i′,′n′,′g′};
+char city_name2[] = “Nanjing”;
+ 字符串以’\0’结束
+ 字符数组用字符串常量初始化时，系统自动加一个串结束符’\0’
+ 字符串数组可以直接cout<<数组名，输出整个字符串
+➢ 对比 cout<<city_name1; 和 cout<<city_name2;
+ 字符串处理头文件
+➢ #include <cstring>
+4
+===== PAGE 5 =====
+前情回顾
+cin用于给变量从键盘输入数据，一般格式：
+cin>>变量名1《>>变量名2>>…>>变量名n》 ;
+cout用于将数据输出到显示器，一般格式：
+cout<<表达式1《<<表达式2<<…<<表达式n》;
+cin与cin.get( )的区别：
+cin自动跳过输入的空白字符（包括空格，制表和回车）
+cin.get()把从键盘上输入的所有字符，包括空白字符
+ 输入 ：cin.getline (char[ ]，int n)
+➢ 读入输入的前n-1个字符，自动补上字符串结束符'/0’
+ 输出：cout
+➢字符数组将输出串结束符前所有字符，数字数组输出地址
+5
+===== PAGE 6 =====
+C
+01 算法的概念
+O
+02 分支结构程序设计
+N
+T 03 循环结构程序设计
+课程内容
+E
+04 常用算法的应用实例
+N
+05 枚举类型（自学）
+T
+S I/O文件简介
+06
+6
+===== PAGE 7 =====
+2.1 算法的概念
+算法的概念与特征
+算法：可执行性、确定性、有穷性、可输入/输出信息
+7
+===== PAGE 8 =====
+2.1 算法的概念
+算法的表示
+算法常用的表示方法包括：自然语言、流程图、伪代码
+【例如】： 求任意两个数a和b中的较大的数据，并输出
+自然语言 流程图 伪代码
+算法开始： 算法开始
+1. 输入a的值和b的值 1 输入a, b；
+输入
+2. 如果a>=b，则输出a 2 if (a>=b) 输 a；
+3. 如果a<b, 则输出b 3 else 输 b；
+输 输
+算法停止 算法
+参考链接 https://zhuanlan.zhihu.com/p/39625195
+8
+===== PAGE 9 =====
+2.1 算法的概念
+算法的表示
+算法常用的表示方法包括：自然语言、流程图、伪代码
+流程图符号介绍：
+符号 作用 示例
+、 符 表示算法的 或
+表示数据的输入或计算 果
+输入、输 框
+的数据输
+用于表示分支情况，框内书
+判断框
+写判断条件
+处理框 指 要处理的内容
+从文档取数据或者将数据存
+文档
+放到文档中
+流程线 表示程序的流向
+9
+===== PAGE 10 =====
+2.1 算法的概念
+算法的基本结构
+顺序结构 分支结构 循环结构
+“块”：在程序和算法中代表一条指令或用“{”和“}”括起来的一个指令组。
+“Y”：代表真或是
+“N”：代表假或否
+条 件
+条件
+10
+===== PAGE 11 =====
+2.1 算法的概念
+顺序结构
+求两数之和。
+num115；
+num220；
+sumnum1+num2;
+输出sum;
+11
+===== PAGE 12 =====
+2.1 算法的概念
+分支结构
+输入整数，输出绝对值。
+x整数；
+如果x>=0，输出x；
+如果x<0，输出-x；
+12
+===== PAGE 13 =====
+2.1 算法的概念
+循环结构
+求100个整数的和。
+count0；
+sum0;
+当 (count<100)
+{
+x 整数；
+sum  sum+x;
+count  count+1;
+}
+输出 sum;
+13
+===== PAGE 14 =====
+C
+01 算法的概念
+O
+02 分支结构程序设计
+N
+T 03 循环结构程序设计
+课程内容
+E
+04 常用算法的应用实例
+N
+05 枚举类型（自学）
+T
+S I/O文件简介
+06
+14
+===== PAGE 15 =====
+2.2 分支结构程序设计
+分支语句的种类
+条件运算符 ? : if 语句
+条件
+if 语句的嵌套 swicth 语句
+15
+===== PAGE 16 =====
+2.2 分支结构程序设计—if语句
+if 语句基本格式：
+if (表达式)
+语句1;
+if (表达式)
+语句1；
+else
+语句2;
+条 件
+条 件
+16
+===== PAGE 17 =====
+2.2 分支结构程序设计—if语句嵌套
+嵌套if语句可以实现多选一的多路分支情况。
+嵌套在if分支中： 嵌套在else分支中:
+if (<表达式1>) if (表达式1)
+{ <语句1>;
+if (<表达式2>) else if (表达式2)
+<语句1>; <语句2>;
+else else if
+<语句2>; ……
+} else
+else <语句n>;
+<语句3>；
+理清程序的逻辑！
+先设计、再编程！
+17
+===== PAGE 18 =====
+例题：求最小值
+【例】从键盘上输入三个整数，输出其中的最小数。
+//方法1：采用无嵌套的if语句
+#include <iostream>
+using namespace std;
+int main() {
+int n1, n2, n3, min;
+cout << "请输入三个整数\n";
+cin >> n1 >> n2 >> n3;
+if (n1 < n2)
+min = n1;
+min = n1 < n2 ? n1 : n2;
+else
+min = n2;
+if (n3 < min)
+min = min < n3 ? min : n3;
+min = n3;
+cout << "三数的最小值是: " << min << endl;
+return 0;
+}
+18
+===== PAGE 19 =====
+例题：求最小值
+【例】从键盘上输入三个整数，输出其中的最小数。
+//方法2：采用在else分支中嵌套
+#include <iostream>
+using namespace std;
+int main() {
+int n1, n2, n3, min;
+cout << "请输入三个整数\n";
+cin >> n1 >> n2 >> n3;
+if (n1 <= n2 && n1 <= n3)
+min = n1;
+else if (n2 <= n1 && n2 <= n3)
+min = n2;
+else
+min = n3;
+cout << "三数的最小值是: " << min << endl;
+return 0;
+}
+19
+===== PAGE 20 =====
+例题：求最小值
+【例】从键盘上输入三个整数，输出其中的最小数。
+//方法3：采用在if分支中嵌套
+#include <iostream>
+using namespace std;
+int main() {
+int n1, n2, n3, min;
+cout << "请输入三个整数\n";
+cin >> n1 >> n2 >> n3;
+if (n1 < n2) {
+if (n1 < n3) min = n1; //n1<n2且n1<n3
+else min = n3; //n1<n2且n1>=n3
+}
+else {
+if (n2 < n3) min = n2; //n1>=n2且n2<n3
+else min = n3; //n1>=n2且n2>=n3
+}
+cout << "三数的最小值是: " << min << endl;
+}
+20
+===== PAGE 21 =====
+2.2 分支结构程序设计—If语句嵌套
+❖ else 和 if的“就近配对”原则
+//语句1：
+if(n%3 == 0)
+if(n%5 == 0)
+cout << n << ″是15的倍数″ << endl;
+else
+cout << n << ″是3的倍数但不是5的倍数″ << endl;
+//语句2：
+if(n%3 == 0) {
+if(n%5 == 0)
+cout<< n << ″是15的倍数″ << endl;
+}
+else
+cout<< n <<″不是3的倍数″<<endl;
+例：判断a是否是5的倍数
+❖ if语句表达式的处理 if (n % 5)
+cout << n << "不是5的倍数" << endl;
+表达式的值非0即为真
+else
+cout << n << "是5的倍数" << endl;
+21
+===== PAGE 22 =====
+例题：商场优惠活动
+【例】商场优惠活动规定，某商品单价80元，一次购买5件以上(包含
+5件)10件以下(不包含10件)打9折，一次购买10件以上(包含10件)打
+8折。设计程序根据客户的购买量计算总价。
+ 算法分析：
+输入购买件数count，设置单价price=80(元)
+根据count值确定折扣率discount；
+实际售价amount=price*count*discount；
+输出amount的值。
+ 算法细化：
+若count<5：discount=1；
+若count>=5且count<10：discount=0.9；
+若count>=10：discount=0.8；
+22
+===== PAGE 23 =====
+例题：商场优惠活动
+#include <iostream>
+using namespace std;
+int main(){
+float price, discount, amount; //单价,折扣,总价
+int count; //购买件数
+cout <<“输入单价：”<<endl; cin >> price;
+cout <<“输入购买件数：”<<endl; cin >> count;
+if(count<5)
+discount = 1;
+discount=1;
+if (count >= 10)
+else if(count<10)
+discount = 0.8;
+discount=0.9;
+else if (count >=5)
+else
+discount = 0.9;
+discount=0.8;
+amount = price*count*discount;
+cout << “单价：” <<price << endl;
+cout <<“购买件数:”<<count <<‘\t’<<“折扣:” <<discount<<endl;
+cout <<"总价："<<amount<<endl;
+}
+23
+===== PAGE 24 =====
+例题：一元二次方程求解
+输入a,b,c
+【例】求一元二次方程
+ax2+bx+c=0 的实数根。 a==0 且
+无效
+b==0
+系数a、b、c的值由键盘输入。
+（注意代码健壮性）
+a==0且
+-c/b
+b!=0
+2
+分析：输入系数a、b、c后，判断a、b是 delta=b -4ac
+否等于0；如a!=0，则令delta= b2–4ac，结
+是
+2
+果有三种情况： b -4ac==0?
+若delta==0：两个相同实根；
+否
+否
+若delta>0：两个不同实根； 2
+b -4ac>0?
+若delta<0：无实根。
+是
+输出 输出两个 输出两个
+无实根 不等实根 相等实根
+24
+===== PAGE 25 =====
+例题：一元二次方程求解
+【例】求一元二次方程ax2+bx+c=0 的实数根。系数a、b、c的值
+由键盘输入。
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+double a, b, c, delta;
+cout << "请输入方程的三个系数a,b,c\n";
+cin >> a >> b >> c;
+if (a == 0 && b == 0)
+cout << "方程系数无效!\n";
+else if (a == 0 && b != 0) // 方程为bx+c=0
+cout << "方程为一元一次方程，方程解为" << -c / b << '\n';
+else
+25
+===== PAGE 26 =====
+例题：一元二次方程求解
+【例】求一元二次方程ax2+bx+c=0 的实数根。系数a、b、c的值
+由键盘输入。
+{
+delta = b * b - 4 * a * c;
+if (delta < 0)
+cout << "该方程无实数根\n";
+else if (delta == 0)
+cout << "该方程有两个相等的实数根：" << -b / (2.0 * a);
+else {
+cout << “该方程有两个实数根，分别为";
+cout << (-b + sqrt(delta)) / (2.0 * a);
+cout << "和" << (-b - sqrt(delta)) / (2.0 * a) << '\n';
+}
+}
+return 0;
+}
+26
+===== PAGE 27 =====
+2.2 分支结构程序设计—switch语句
+开关语句(switch) ：
+【例如】
+用来实现多选一 char score;
+switch (score) {
+case ′A′: cout<<″excellent\n″;
+switch (表达式) {
+break;
+case 常量表达式1:
+case ′a′: cout<<″excellent\n″;
+break;
+《语句序列1》
+case ′B′: case ′b′: cout<<″good\n″;
+《break;》
+break;
+default: cout<<″fail\n″;
+……
+}
+case 常量表达式n:
+《语句序列n》 每个常量表达式取值必须各不相同
+《break;》 允许多个常量表达式对应同一个语句序列
+《default:语句序列》
+switch语句的可读性比嵌套if语句好，但
+} 开关语句中限定了”表达式”的取值类型
+int char bool enum 27
+===== PAGE 28 =====
+例题：计算器加减乘除运算
+【例】设计计算器程序实现加减乘除运算。
+#include <iostream>
+using namespace std;
+int main( ){
+float num1, num2; char op;
+cout <<"输入操作数1，运算符，操作数2："<< endl ;
+cin >> num1 >> op >> num2;
+switch(op){
+case '+': cout<<num1<<op<<num2<<"="<<num1+num2<<endl; break;
+case '-': cout<<num1<<op<<num2<<"="<<num1-num2<<endl; break;
+case '*': cout<<num1<<op<<num2<<"="<<num1*num2<<endl; break;
+case '/': cout<<num1<<op<<num2<<"="<<num1/num2<<endl; break;
+default : cout<<op<<"是无效运算符!";
+}
+return 0;
+}
+28
+===== PAGE 29 =====
+例题：今天是星期几？
+【例】已知2025年1月1日是星期三，编写程序，实现输入任意的月
+份和日期，输出2025年该日是星期几。
+#include <iostream>
+分析：
+using namespace std; ➢ 计算该日期距离1月1日的天数
+int main(){ ➢ 再加上3（1月1日是星期三)
+➢ 求星期: 对7取模:
+int month, date; int days=0;
+• 余数为0，则为星期天
+cout << "请输入月份和日期:";
+• 余数为1，则为星期一
+cin >> month >> date;
+• 以此类推。
+switch(month) {
+//计算与1月1日的间隔天数
+case 12: days+=30; case 11: days+=31; case 10: days+=30;
+case 9: days+=31; case 8: days+=31; case 7: days+=30;
+case 6: days+=31; case 5: days+=30; case 4: days+=31;
+case 3: days+=28; case 2: days+=31; case 1: days+=date-1;
+} //-1是因为计算的是离1月1日的天数
+29
+===== PAGE 30 =====
+例题：今天是星期几？
+【例】已知2025年1月1日是星期三，编写程序，实现输入任意的月
+份和日期，输出2025年该日是星期几。
+switch((days+3)%7){ //+3是因为1月1日是星期三
+case 0: cout<<month<<"月"<<date<<"日"<<"是星期天\n"; break;
+case 1: cout<<month<<"月"<<date<<"日"<<"是星期一\n"; break;
+case 2: cout<<month<<"月"<<date<<"日"<<"是星期二\n"; break;
+case 3: cout<<month<<"月"<<date<<"日"<<"是星期三\n"; break;
+case 4: cout<<month<<"月"<<date<<"日"<<"是星期四\n"; break;
+case 5: cout<<month<<"月"<<date<<"日"<<"是星期五\n"; break;
+case 6: cout<<month<<"月"<<date<<"日"<<"是星期六\n"; break;
+}
+健壮性!!!
+return 0;
+如何增加判断：日期的合法性
+}
+30
+===== PAGE 31 =====
+2.2 分支结构程序设计—if与switch转换
+【例】将百分制转换成五分制。
+ 要求：
+➢ 百分制分数大于等于90小于等于100，为'A'；
+➢ 百分制分数大于等于80小于90，为'B'；
+➢ 百分制分数大于等于70小于80，为'C'；
+➢ 百分制分数大于等于60小于70，为'D'，
+➢ 其余为'E'。
+ 分析：
+➢ 百分制转五分制的分段点是10的倍数
+➢ 将百分制的分数整除以10，可获得若干整数值
+➢ 采用开关语句
+31
+===== PAGE 32 =====
+#include <iostream > 【例】将百分制转换成五分制。
+using namespace std;
+int main() { #include <iostream >
+int score;
+using namespace std;
+cout << “输入百分制分数:";
+cin >> score;
+int main() {
+cout << "五分制分数为：";
+int score;
+switch(score/10){
+case 10:case 9: cout <<"请按百分制输入分数:";
+cout <<'A';break;
+cin >> score;
+case 8:
+cout << "五分制分数为：";
+cout <<'B';break;
+if(score>=90) cout <<'A';
+case 7:
+else if(score>=80) cout <<'B';
+cout <<'C';break;
+case 6: else if(score>=70) cout <<'C';
+cout <<'D';break;
+else if(score>=60) cout <<'D';
+default: cout <<'E';
+else cout <<'E';
+}
+cout << "\n";
+cout << "\n";
+return 0;
+return 0;
+} }
+32
+===== PAGE 33 =====
+2.2 分支结构程序设计—if与switch转换
+课堂练习
+B
+设已声明int a, b；则与下边语句等价的是_______。
+switch(a)
+{ case 1:
+case 2: b=a; break;
+case 3:
+case 4: b=2*a;
+}
+A、if((a==1)||(a==2)) b=a; else b=2*a;
+B、if((a==1)||(a==2)) b=a; else if((a==3)||(a==4)) b=2*a;
+C、if((a==1)&&(a==2)) b=a; else if((a==3)&&(a==4)) b=2*a;
+D、if((a==1)||(a==2)||(a==3)||(a==4)) b=2*a;
+33
+===== PAGE 34 =====
+C
+01 算法的概念
+O
+02 分支结构程序设计
+N
+T 03 循环结构程序设计
+课程内容
+E
+04 常用算法的应用实例
+N
+05 枚举类型（自学）
+T
+S I/O文件简介
+06
+34
+===== PAGE 35 =====
+2.3 循环结构程序设计
+【例】求1+2+3+4+…+100的值
+int sum = 0;
+循环
+sum = sum + 1; 相似的代码重复了100遍
+sum = sum + 2;
+sum = sum + n;
+sum = sum + 3;
+循环变量
+…
+sum = sum + 100;
+循环变量初始化 循环条件 循环变量修改
+n = 1 n <= 100 n = n + 1
+循环三要素
+35
+===== PAGE 36 =====
+2.3 循环结构程序设计
+• for 循环
+for ( 循环变量初始化 ; 循环条件 ; 循 环 条 件 修 改 )
+{
+循环体语句;
+}
+循环变量初始化 n = 1
+循环条件 n <= 100
+循环变量修改 n = n + 1
+int n = 0, sum = 0;
+for ( n = 1 ; n <= 100 ; n + + )
+{
+n = ?
+sum = sum + n;
+}
+36
+===== PAGE 37 =====
+2.3 循环结构程序设计
+• while 循环
+循环变量初始化
+while ( 循环条件 )
+{
+循环体语句; 循环变量修改
+}
+循环变量初始化 n = 1
+循环条件 n <= 100
+循环变量修改 n = n + 1
+int n = 1, sum = 0;
+while ( n <= 100 )
+{
+sum += n;
+n = ?
+n++;
+}
+37
+===== PAGE 38 =====
+2.3 循环结构程序设计
+• do-while 循环
+循环变量初始化
+do
+{
+循环体语句; 循环变量修改
+} while ( 循 环 条 件 ) ;
+循环变量初始化 n = 1
+循环条件 n <= 100
+循环变量修改 n = n + 1
+至少执行一次
+循环体
+int n = 1, sum = 0;
+do
+{
+sum += n;
+n = ?
+n++;
+} while ( n < = 1 0 0 ) ;
+38
+===== PAGE 39 =====
+2.3 循环结构程序设计
+for 循环
+int n = 0, sum = 0;
+for ( n = 1 ; n <= 100 ; n + + )
+{
+sum = sum + n;
+}
+while 循环 do-while 循环
+int n = 1, sum = 0; int n = 1, sum = 0;
+while ( n <= 100 ) do
+{ {
+sum += n; sum += n;
+n++; n++;
+} } while ( n < = 1 0 0 ) ;
+39
+===== PAGE 40 =====
+2.3 循环结构程序设计
+【例】用迭代法求 𝒂的近似值，要求前后两个迭代结果之差小于1e-5。
+迭代公式：𝒙 = (𝒙 + 𝒂/𝒙 )/𝟐
+𝒏+𝟏 𝒏 𝒏
+𝒙
+循环变量：
+循环条件： 𝒙 − 𝒙 ≥ 𝟏𝒆 − 𝟓
+𝒏+𝟏 𝒏
+𝒙 = (𝒙 + 𝒂/𝒙 )/𝟐
+循环体：
+𝒏+𝟏 𝒏 𝒏
+40
+===== PAGE 41 =====
+2.3 循环结构程序设计
+#include <iostream>
+【例】用迭代法求 𝒂的近似
+#include <cmath>
+值，要求前后两个迭代结果
+using namespace std;
+const int MAX_ITER = 100;
+之差小于1e-5。
+int main() {
+float x0 = 0, x1 = 0, a = 0;
+int iter = 0;
+cout << "输入一个正数（待求平方根）：" << endl;
+cin >> a;
+if (a <= 0)
+cout << a << "输入错误！" << endl;
+else {
+x1 = a; //设置初值，x1用作保存 果
+do {
+x0 = x1;
+x1 = (x0 + a / x0) / 2;
+iter++;
+} while ((fabs(x1 - x0) >= 1e-5) && (iter < MAX_ITER));
+cout << a << "的平方根为：" << x1 << endl;
+cout << "迭代次数为：" << iter << endl;
+}
+return 0;
+}
+41
+===== PAGE 42 =====
+2.3 循环结构程序设计
+#include <iostream>
+【例】用迭代法求 𝒂的近似
+#include <cmath>
+值，要求前后两个迭代结果
+using namespace std;
+const int MAX_ITER = 100;
+之差小于1e-5。
+int main() {
+float x0 = 0, x1 = 0, a = 0;
+int iter = 0;
+cout << "输入一个正数（待求平方根）：" << endl;
+cin >> a;
+if (a <= 0)
+cout << a << "输入错误！" << endl;
+else {
+x1 = aa ;+ 1 ; //设置初值，x1用作保存 果
+while ((fabs(x1 - x0) >= 1e-5) && (iter < MAX_ITER)) {
+x0 = x1;
+x1 = (x0 + a / x0) / 2;
+iter++;
+}
+cout << a << "的平方根为：" << x1 << endl;
+cout << "迭代次数为：" << iter << endl;
+}
+return 0;
+}
+42
+===== PAGE 43 =====
+2.3 循环结构程序设计
+【例】给定一个正整数n，求它的因数个数。如6的因数为1、2、3、6，
+则因数个数为4。
+循环变量： 定义循环变量 i
+循环条件：i <= n
+循环体： if (n % i == 0) count ++;
+43
+===== PAGE 44 =====
+2.3 循环结构程序设计
+【例】给定一个正整数n，求它的因数个数。如6的因数为1、2、3、6，
+则因数个数为4。
+#include <iostream>
+i = 1;
+using namespace std;
+while (i <= n) {
+int main() {
+if (!(n % i))
+int i = 0, n = 0, count = 0;
+count++;
+cout << "请输入一个正整数：";
+i++;
+cin >> n;
+}
+for (i = 1; i <= n; i++) {
+if (!(n % i))
+count++;
+i = 1;
+}
+do{
+cout << n << "的因数个数为：" <<
+if (!(n % i))
+count << endl;
+count++;
+return 0;
+i++;
+}
+} while (i <= n);
+44

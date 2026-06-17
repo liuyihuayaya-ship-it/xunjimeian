@@ -1,0 +1,1153 @@
+Total pages: 55
+
+===== PAGE 1 =====
+计算机程序设计(上)
+基本控制结构程序设计
+王武森
+电气工程学院
+15150698528
+wswang@seu.edu.cn
+1
+===== PAGE 2 =====
+前情回顾
+if 语句基本格式：
+if (表达式)
+语句1;
+if (表达式)
+语句1；
+else
+语句2;
+2
+===== PAGE 3 =====
+前情回顾
+嵌套在if分支中： 嵌套在else分支中:
+if (<表达式1>) if (表达式1)
+{ <语句1>;
+if (<表达式2>) else if (表达式2)
+<语句1>; <语句2>;
+else else if
+<语句2>; ……
+} else
+else <语句n>;
+<语句3>；
+3
+===== PAGE 4 =====
+前情回顾
+开关语句(switch) ：
+用来实现多选一
+【例如】
+int score;
+switch (表达式) {
+switch (score/10) {
+case 常量表达式1: case 10: case 9: cout<<'A'; break;
+case 8: cout<<'B'; break;
+《语句序列1》
+case 7: cout<<'C'; break;
+《break;》 case 6: cout<<'D'; break;
+default: cout<<″fail\n″;
+……
+}
+case 常量表达式n:
+《语句序列n》 每个常量表达式取值必须各不相同
+《break;》 允许多个常量表达式对应同一个语句序列
+《default:语句序列》 switch语句的可读性比嵌套if语句好，但
+} 开关语句中限定了”表达式”的取值类型
+int char bool enum 4
+===== PAGE 5 =====
+前情回顾
+• 循环三要素
+循环变量初始化 循环条件 循环变量修改
+• for 循环
+for ( 循环变量初始化 ; 循环条件 ; 循 环 变 量 修 改 )
+{
+循环体语句;
+}
+• do-while 循环
+• while 循环
+循环变量初始化 循环变量初始化
+while ( 循环条件 ) do
+{ {
+循环体语句; 循环变量修改 循环体语句; 循环变量修改
+} } while ( 循 环 条 件 ) ;
+5
+===== PAGE 6 =====
+下面程序段的功能表达的函数y(x)为 ，当n=10,x=10打印
+结果是 , x的最终值是 。
+int x,y,n,k;
+cin >> x >> n;
+n
+ x 
+k = 0; A. y = 1+
+ 
+ n 
+do{
+x/=2; k++;
+}while(k < n);
+y = 1+x;
+k = 0;
+do{
+y = y*y; k++;
+}while(k < n);
+cout<<y<<endl;
+C . y =
+
+1 +
+2
+x
+n
+
+n
+B . y =
+
+1 +
+2
+x
+n
+
+2 n
+前情回顾
+课堂练习
+B
+1 0
+2n
+ x 
+D. y = 1+
+ 
+
+2n+1
+
+6
+===== PAGE 7 =====
+C
+01 算法的概念
+O
+02 分支结构程序设计
+N
+T 03 循环结构程序设计
+课程内容
+E
+04 常用算法的应用实例
+N
+05 枚举类型（自学）
+T
+S I/O文件简介
+06
+7
+===== PAGE 8 =====
+2.3 循环结构程序设计-循环嵌套
+【例】打印九九乘法表。格式为：
+ 算法描述：
+* 1 2 3 4 5 6 7 8 9
+for (i=1; i<10; i++)
+1 1 {
+2 2 4 cout<<i; //输出行号
+3 3 6 9 输出第i行数据；//输出第 i 行
+…
+cout<<endl; //准备输出下一行
+9 9 18 27 36 45 54 63 72 81
+}
+第 i 行处理细化：每个数的值是其所在行与列的乘积
+输出下三角形表：
+for (j=1; j<=i; j++) cout<<setw(5)<<i*j;
+8
+===== PAGE 9 =====
+2.3 循环结构程序设计-循环嵌套
+【例】打印九九乘法表。
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main() {
+cout << setw(5) << '*';
+for (int i = 1; i <= 9; i++)
+cout << setw(5) << i; //输出表头(乘数)
+cout << endl << endl;
+for (int i = 1; i <= 9; i++) {
+cout << setw(5) << i; //输出行号(被乘数)
+for (int j = 1; j <= i; j++)
+cout << setw(5) << i * j; //输出表中数据(乘积)
+cout << endl; //换行，准备输出下一行
+}
+return 0;
+}
+9
+===== PAGE 10 =====
+2.3 循环结构程序设计-循环嵌套
+【例】打印如下图形
+#include <iostream>
+using namespace std;
+int main() {
+for (int i = 1; i <= 5; i++) {
+for (int k = 5; k > i; k--) {
+cout << ' ';
+}
+for (int j = 0; j < 2 * i - 1; j++) {
+cout << '*';
+}
+cout << '\n';
+}
+return 0;
+}
+10
+===== PAGE 11 =====
+2.4 转向语句
+◆ 通过转向语句 break语句：
+改变程序原来  在switch语句中， break语句跳出switch语句，
+转去执行switch语句之后的语句。
+的执行顺序
+ 在for、while、do循环中，可用break结束循环：
+◆ 几种转向语句：
+for(…; ;…) {
+for(…; …; …){
+…
+ break
+for(…; …; … )
+if(表达式) break;
+{… break; }
+ continue …
+… ;
+} }
+ goto
+ return  在多重循环中，break语句只能终止其所在的循
+环语句。
+11
+===== PAGE 12 =====
+2.4 转向语句
+◆ 通过转向语句 continue语句：
+改变程序原来 continue语句在循环语句中，终止本次循环。
+的执行顺序 当程序到continue语句时，将跳过其后尚未执行
+的循环体语句，开始下一次循环。
+◆ 几种转向语句：
+continue语句与break语句的区别在于：
+ break
+continue语句结束的只是本次循环
+ continue
+break结束的是整个(重)循环。
+ goto
+ return
+12
+===== PAGE 13 =====
+2.4 转向语句
+◆ 通过转向语句 return语句：
+改变程序原来 ➢ return语句用于结束函数的执行，返回调用者，
+如果是主函数，则返回至操作系统。
+的执行顺序
+◆ 几种转向语句：
+➢ 利用一个return语句可以将一个数据返回给调用
+ break
+者。
+ continue
+ goto ➢ 通常，当函数的返回类型为void时，return语句
+可以省略，如果使用也仅作为函数或程序结束的标
+ return
+志。
+13
+===== PAGE 14 =====
+2.4 转向语句
+C
+【例】若有如下程序段，执行后输出的结果是__________。
+for (i = 0, sum = 0; i < 10; i++)
+{
+if (i % 2)
+continue;
+sum += i;
+}
+cout << sum;
+A. 0 B. 25 C. 20 D. 30
+14
+===== PAGE 15 =====
+2.4 转向语句
+7 4
+执行下面程序段后，m和k的值分别为 、 。
+int m = 0, k = 0;
+for (k = 1; k <= 50; k++) {
+if (m > 5)
+break;
+if (m % 2 == 0) {
+m += 5;
+continue;
+}
+m -= 3;
+}
+初值 m=0 k=1
+第1次循环后 m=5 k=2
+第2次循环后 m=2 k=3
+第3次循环后 m=7 k=4
+第4次循环后 m=7 break k=4, k++未做
+15
+===== PAGE 16 =====
+2.4 转向语句
+【例】输出1～30内不是3的倍数的整数
+#include <iostream>
+#include <iomanip>
+using namespace std;
+int main() {
+int n = 0;
+for (int i = 1; i <= 30; i++)
+{
+if (i % 3 == 0) continue;
+cout << setw(4) << i;
+n++;
+if (n % 6 == 0) cout << '\n';
+}
+cout << '\n';
+return 0;
+}
+16
+===== PAGE 17 =====
+C
+01 算法的概念
+O
+02 分支结构程序设计
+N
+T 03 循环结构程序设计
+课程内容
+E
+04 常用算法的应用实例
+N
+05 枚举类型（自学）
+T
+S I/O文件简介
+06
+17
+===== PAGE 18 =====
+2.6 常用算法的应用实例
+所需解决问题的种类与复杂程度的不同决定了算法的多样性
+常用算法： 【例】“百鸡问题”：鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，
+值钱一。百钱买百鸡，问鸡翁、母、雏各几何？
+直接法
+枚举法
+分析：设鸡翁、母、雏分别为cock，hen，chick，根据
+题意可得：
+递推法
+cock *5 + hen*3 + chick / 3 = 100
+
+迭代法 cock + hen + chick = 100
+
+递归法
+两个方程无法解三个变量，只能将可能的取值
+代入，其中能满足方程的就是解（枚举法）。
+回溯法
+等
+18
+===== PAGE 19 =====
+2.6 常用算法的应用实例
+【例】“百鸡问题”：鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，
+值钱一。百钱买百鸡，问鸡翁、母、雏各几何
+常用算法：
+cock *5 + hen* 3 + chick / 3 = 100
+
+直接法 cock + hen + chick = 100
+
+for (cock=0; cock<=20; cock++)
+枚举法
+for (hen=0; hen<=33; hen++)
+递推法 for (chick=0; chick<=300; chick++)
+if ((cock + hen + chick == 100)
+迭代法
+&&(5*cock + 3*hen + chick/3 == 100)
+&&(chick % 3 == 0))
+递归法
+cout<<cock<<'\t'
+<<hen<<'\t'
+回溯法
+<<chick<<endl;
+等
+算法使用三重循环，循环体将执行21*34*301=214914次。
+改进算法，如能减少一重循环，将大大缩短运行时间。 19
+===== PAGE 20 =====
+2.6 常用算法的应用实例
+【例】“百鸡问题”：鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，
+值钱一。百钱买百鸡，问鸡翁、母、雏各几何
+常用算法：
+cock *5 + hen* 3 + chick / 3 = 100
+
+直接法 chick = 100 − cock − hen
+
+算法改进为：
+枚举法
+for (cock = 0; cock <= 20; cock++) {
+for (hen = 0; hen <= 33; hen++) {
+递推法
+chick = 100 - cock - hen;
+if ((5 * cock + 3 * hen + chick / 3 == 100)
+迭代法
+&& (chick % 3 == 0))
+递归法 cout << cock << '\t' << hen << '\t'
+<< chick << endl;
+回溯法 }
+}
+等
+算法使用二重循环，循环体将执行21*34=714次。
+是否可以进一步改成只用一重循环？ 20
+===== PAGE 21 =====
+2.6 常用算法的应用实例
+【例】“百鸡问题”：鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，
+值钱一。百钱买百鸡，问鸡翁、母、雏各几何
+常用算法：
+ hen = 25 − cock *7 / 4
+
+直接法 chick = 75 + cock * 3 / 4
+
+算法改进为：
+枚举法
+for (cock = 0; cock <= 20; cock += 4) {
+hen = 25 - cock * 7 / 4;
+递推法
+if (hen < 0)
+break;
+迭代法
+chick = 75 + cock * 3 / 4;
+cout << cock << '\t' << hen << '\t'
+递归法
+<< chick << endl;
+回溯法 }
+等
+算法使用一重循环，循环体将执行 5 次。
+21
+===== PAGE 22 =====
+2.6 常用算法的应用实例
+【例】给定正整数m，判定其是否为素数。
+#include <iostream> 算法：属于枚举法
+常用算法：
+#include <cmath> ➢ 输入被测数m (m>2)；
+using namespace std;
+➢ 令整型变量 k= sqrt(m)
+直接法
+int main() {
+➢ 判断m是否素数：
+int m = 0, i = 0, k = 0;
+⚫ 设置辅助整型变量i, 使i
+枚举法 cout << "输入正整数m：";
+从2开始直到k，依次测试
+cin >> m;
+m能否整除 i
+if ((m == 2)||(m == 3))
+递推法
+cout << m << "是素数\n"; ⚫ 若能整除，则结束“整除
+else { 测试”循环
+迭代法
+k = sqrt(m); ⚫ 根据i是否大于k，判断输
+for (i = 2; i <= k; i++)
+出结果是否为素数。
+递归法 if (m % i == 0)
+break; //只要有一个整除即可停止测试
+if (i >= k + 1)
+回溯法
+cout << m << "是素数\n";
+else //循环提前终止：非素数
+等
+cout << m << "不是素数\n";
+}
+}
+22
+===== PAGE 23 =====
+2.6 常用算法的应用实例
+【例】设 n 是一任意自然数（非负整数），若将 n 的各位数字反向
+排列所得自然数 n1 与 n 相等，则称 n 为回文数。例如，若
+常用算法：
+n=1234321，则称 n 为一回文数；但若 n=1234567，则 n
+直接法 不是回文数。设计算法输出所有4位回文数。要求每行输出5个
+数，并在最后另起一行输出回文数的个数。
+枚举法
+方法一：枚举遍历：
+递推法
+遍历1000~9999所有整数，通过整除和取模，提取各个
+迭代法 数位上的数字，然后比较所有对称数位上的数字是否相等。
+递归法 方法二：枚举构造：
+依据回文数的定义直接用0~9循环构造回文数，穷举千
+回溯法
+（个）位和百（十）的所有可以取到个位数，计算该回文
+数的值。
+等
+23
+===== PAGE 24 =====
+2.6 常用算法的应用实例
+【例】设计算法输出所有4位回文数。
+常用算法： #include <iostream> 方法一：枚举遍历
+using namespace std;
+int main() {
+直接法
+int n1, n2, n3, n4, tempNum;
+int count = 0;
+for (int i = 1000; i < 10000; i++) {
+枚举法
+tempNum = i;
+n1 = tempNum % 10; // 求个位
+n4 = tempNum / 1000; // 求千位
+递推法
+tempNum = tempNum / 10;
+n2 = tempNum % 10; // 求十位
+迭代法 n3 = tempNum / 10 % 10; // 求百位
+if ((n4 == n1) && (n3 == n2)) {
+count++;
+递归法
+cout << i << '\t';
+if (count % 5 == 0)
+cout << endl;
+回溯法
+}
+}
+等 cout << count << endl;
+return 0;
+}
+24
+===== PAGE 25 =====
+2.6 常用算法的应用实例
+【例】设计算法输出所有4位回文数。
+常用算法： #include <iostream> 方法二：枚举构造
+using namespace std;
+int main()
+直接法
+{
+int count = 0, num = 0;
+// 穷举法罗列所有4位回文数
+枚举法
+for (int i = 1; i < 10; i++)
+{
+for (int j = 0; j < 10; j++)
+递推法
+{
+num = i * 1000 + j * 100 + j * 10 + i;
+迭代法 count++;
+cout << num << '\t';
+if (count % 5 == 0)
+递归法
+cout << endl;
+}
+}
+回溯法
+cout << count;
+return 0;
+等 }
+25
+===== PAGE 26 =====
+2.6 常用算法的应用实例
+【例】设计程序输出Fibonacii数列前20项，每行输出5个数据。
+常用算法：
+ 1 n = 1
+
+直接法
+F(n) = 1 n = 2
+
+
+F(n-1) + F(n- 2) n  2
+
+枚举法
+int f1 = 1, f2 = 1, f3;
+cout << setw(10) << f1 << setw(10) << f2;
+递推法
+for (int i = 3; i <= m; i++) {
+f3 = f1 + f2;
+迭代法
+cout << setw(10) << f3;
+f1 = f2;
+递归法
+f2 = f3;
+if (i % 5 == 0)
+回溯法
+cout << '\n'; //控制每行5个数据
+}
+等
+思考：输出Fibonacii数列前50项，会存在什么问题？怎么解决？
+26
+===== PAGE 27 =====
+2.6 常用算法的应用实例
+【例】设计程序输出Fibonacii数列前50项，每行输出5个数据。
+#include <iostream>
+常用算法：
+#include <iomanip>
+using namespace std;
+直接法
+const int m = 50;
+枚举法
+int main() {
+long long int f1 = 1, f2 = 1, f3;
+递推法 cout << setw(15) << f1 << setw(15) << f2;
+for (int i = 3; i <= m; i++) {
+f3 = f1 + f2;
+迭代法
+cout << setw(15) << f3;
+f1 = f2;
+递归法
+f2 = f3;
+if (i % 5 == 0)
+回溯法
+cout << '\n'; //控制每行5个数据
+}
+等 return 0;
+}
+27
+===== PAGE 28 =====
+2.6 常用算法的应用实例
+【例】 输入一个8位二进制数，将其转换为十进制数输出。
+常用算法：
+直接法
+分析: 二进制转换为十进制方法：每位二进制数乘以该
+枚举法
+位的权然后相加，实际上属于多项式求和问题
+y = a ×xn + a ×xn-1 + …+ a ×x1 + a ×x0
+递推法 n n-1 1 0
+直接求和，每一项都要算x的次方，时间复杂度很高
+迭代法
+递归法
+y = (…( (a x +a ) x + a )x + a …)x + a
+n n-1 n-2 n-3 0
+回溯法
+等
+28
+===== PAGE 29 =====
+2.6 常用算法的应用实例
+【例】 输入一个8位二进制数，将其转换为十进制数输出。
+常用算法：
+#include <iostream>
+using namespace std;
+直接法 const int N = 8;
+void main() {
+char bin[N];
+枚举法
+int x = 2, a, dec, i;
+cout << "输入8位二进制序列：" << endl;
+递推法 for (i = N - 1; i >= 0; i--)
+cin >> bin[i]; //先输入的是高位
+dec = 0;
+迭代法
+for (i = N - 1; i >= 0; i--) {
+a = bin[i] - '0'; //数字字符转换为数字
+递归法
+dec = dec * x + a;
+}
+回溯法 cout << "二进制序列(";
+for (i = N - 1; i >= 0; i--)
+cout << bin[i];
+等
+cout << ")的值为:" << dec << endl;
+}
+29
+===== PAGE 30 =====
+2.6 常用算法的应用实例
+【例】输入一个数x，求sinx的近似值，要求误差小于0.0001。根据
+常用算法：
+Taylor公式可得sinx的近似计算公式如下：
+直接法 x3 x5 x7
+sin(x) = x − + − + 
+3! 5! 7!
+枚举法
+递推法 分析：可看作一个累加过程，关键在于累加项数的确
+定。取前n项累加和作为sin(x)的近似值，则
+迭代法
+第n+1项的绝对值就是误差限。
+递归法
+2𝑛−1
+𝑥
+𝑛−1
+𝑎 = (−1) ⋅
+𝑛
+(2𝑛 − 1)!
+回溯法
+等
+30
+===== PAGE 31 =====
+2.6 常用算法的应用实例
+【例】输入一个数x，求sinx的近似值，要求误差小于0.0001。根据
+常用算法：
+Taylor公式可得sinx的近似计算公式如下：
+直接法 x3 x5 x7
+sin(x) = x − + − + 
+3! 5! 7!
+枚举法
+基本思想：
+递推法
+•
+递推准备：设置累加和的初值、第一项的值
+迭代法
+•
+递推条件：如果误差不满足要求
+• 递推处理: 用当前项 t 推出下一项，并累加。推出
+递归法
+下一项的方法为：
+回溯法
+t  -t*x*x/((2*n-1)*(2*n-2))
+等
+2𝑛−1
+𝑥
+𝑛−1
+𝑎 = (−1) ⋅
+𝑛
+(2𝑛 − 1)!
+31
+===== PAGE 32 =====
+2.6 常用算法的应用实例
+【例】输入一个数x，求sinx的近似值，要求误差小于0.0001。根据
+常用算法：
+Taylor公式可得sinx的近似计算公式如下：
+直接法 x3 x5 x7
+sin(x) = x − + − + 
+3! 5! 7!
+枚举法
+const double EPSILON = 0.0001;
+递推法 double x, sinx, t;
+int n = 1;
+迭代法 cout << "input x: ";
+cin >> x;
+递归法 sinx = t = x;
+while (fabs(t) > EPSILON) {
+n++;
+回溯法
+t = -t * x * x / ((2 * n - 1) * (2 * n - 2));
+sinx += t;
+等
+}
+32
+===== PAGE 33 =====
+2.6 常用算法的应用实例
+【例】递推求解sinx的近似值
+常用算法：
+#include <iostream>
+#include <cmath>
+直接法 using namespace std;
+int main() {
+const double EPSILON = 0.0001;
+枚举法
+double x, sinx, t;
+int n = 1;
+递推法
+cout << "input x: ";
+cin >> x;
+迭代法
+sinx = t = x;
+while (fabs(t) > EPSILON) {
+递归法 n++;
+t = -t * x * x / ((2 * n - 1) * (2 * n - 2));
+回溯法 sinx += t;
+}
+cout << "sin(" << x << ") = " << sinx << '\n';
+等
+}
+33
+===== PAGE 34 =====
+【例】用迭代法，求a的平方根。要求前后两次迭代误差小于
+常用算法：
+0.00001。近似计算公式如下：
+直接法
+枚举法
+递推法
+迭代法
+递归法
+回溯法
+等
+x
+n + 1
+=
+1
+2
+( x
+n
++
+x
+a
+n
+)
+2.6 常用算法的应用实例
+分析：
+x x
+✓利用迭代公式，在 n的基础上，不断求 n+1。
+✓ 避免无休止的迭代：设置最大迭代次数，避免不收敛
+基本思想：
+1 ;
+）迭代初值：设置迭代初值
+2
+）统一的方法
+a) x0x1 x1;
+，利用迭代公式求
+b) a)
+迭代条件：若精度不满足要求且迭代次数满足要求，转
+34
+===== PAGE 35 =====
+2.6 常用算法的应用实例
+【例】用迭代法，求a的平方根。
+#include <iostream>
+常用算法：
+#include <cmath>
+using namespace std;
+直接法 const int MAXITER = 100;
+void main() {
+float x0 = 0, x1 = 0, a = 0;
+枚举法 int iter = 0;
+cout << "输入一个正数（待求的平方根）：";
+cin >> a;
+递推法
+if (a <= 0)
+cout << a << "输入错误！" << endl;
+else {
+迭代法
+x1 = a / 2; //设置初值，x1用作保存结果
+do {
+x0 = x1;
+递归法
+x1 = (x0 + a / x0) / 2;
+iter++;
+} while ((fabs(x1 - x0) >= 1e-5) && (iter < MAXITER));
+回溯法
+if ((iter >= MAXITER) && (fabs(x1 - x0) > 1e-5))
+cout << "迭代过程未收敛！";
+等 else
+cout << a << "的平方根为：" << x1 << endl;
+}
+}
+35
+===== PAGE 36 =====
+2.6 常用算法的应用实例
+【例】对于不方便直接解析求解的非线性方程，可采用Newton迭
+常用算法：
+代法求出近似解。对非线性方程 f(x) 在 x 附近进行Tayor展开：
+0
+直接法 𝒇 𝒙 = 𝒇 𝒙 + 𝒙 − 𝒙 𝒇 𝟏 𝒙 + 𝒙 − 𝒙 𝟐 𝒇 𝟐 𝒙 Τ𝟐! + ⋯
+𝟎 𝟎 𝟎 𝟎 𝟎
+取其线性部分作为 f(x) 的近似方程
+枚举法
+𝒇 𝒙 = 𝒇 𝒙 + 𝒙 − 𝒙 𝒇 𝟏 𝒙
+𝟎 𝟎 𝟎
+递推法 设 𝒇 𝟏 𝒙 ≠ 𝟎 ，则 f(x)=0 的第一次迭代解为
+𝟎
+𝒙 = 𝒙 − 𝒇 𝒙 Τ𝒇 𝟏 𝒙
+𝟏 𝟎 𝟎 𝟎
+迭代法
+同理，对 f(x) 在 x 附近进行Taylor展开，可求得第二次迭代解
+1
+𝒙 = 𝒙 − 𝒇 𝒙 Τ𝒇 𝟏 𝒙
+递归法
+𝟐 𝟏 𝟏 𝟏
+如此可以推导出Newton法的迭代公式
+回溯法
+𝒙 = 𝒙 − 𝒇 𝒙 Τ𝒇 𝟏 𝒙
+𝒏+𝟏 𝒏 𝒏 𝒏
+等 请编程使用Newton迭代法求方程 𝒙𝟑 − 𝒆𝒙 = 𝟎 的近似根，要求迭
+代误差小于1e-5。
+36
+===== PAGE 37 =====
+2.6 常用算法的应用实例
+【例】用Newton迭代法求 𝒙𝟑 − 𝒆𝒙 = 𝟎 的近似解。
+常用算法：
+𝒙 = 𝒙 − 𝒇 𝒙 Τ𝒇 𝟏 𝒙
+𝒏+𝟏 𝒏 𝒏 𝒏
+直接法
+迭代公式： 𝒙 = 𝒙 − 𝒙𝟑 − 𝒆𝒙 𝒏 ൗ 𝟑𝒙𝟐 − 𝒆𝒙 𝒏
+𝒏+𝟏 𝒏 𝒏 𝒏
+枚举法
+分析：
+x x
+✓利用迭代公式，在 n的基础上，不断求 n+1。
+递推法
+✓ 避免无休止的迭代：设置最大迭代次数，避免不收敛
+迭代法
+基本思想：
+递归法
+1 ;
+）迭代初值：设置迭代初值
+2
+）统一的方法
+回溯法
+a) x0x1 x1;
+，利用迭代公式求
+等 b) a)
+迭代条件：若精度不满足要求且迭代次数满足要求，转
+37
+===== PAGE 38 =====
+2.6 常用算法的应用实例
+【例】用Newton迭代法求 𝒙𝟑 − 𝒆𝒙 = 𝟎 的近似解。
+迭代公式： 𝒙 = 𝒙 − 𝒙𝟑 − 𝒆𝒙 𝒏 ൗ 𝟑𝒙𝟐 − 𝒆𝒙 𝒏
+𝒏+𝟏 𝒏 𝒏 𝒏
+#include <iostream>
+#include <cmath>
+using namespace std;
+const int MAXITER = 100;
+void main() {
+float x0 = 0, x1 = 0;
+int iter = 0;
+cout << "请输入迭代初值: ";
+cin >> x1;
+do {
+x0 = x1;
+x1 = x0 - (pow(x0, 3) - exp(x0)) / (3 * x0 * x0 - exp(x0));
+iter++;
+} while ((fabs(x1 - x0) >= 1e-5) && (iter < MAXITER));
+if ((iter >= MAXITER) && (fabs(x1 - x0) > 1e-5))
+cout<<"迭代过程未收敛！";
+else {
+cout << "方程x^3-e^x=0的根为: " << x1 << endl;
+cout << "迭代次数为: " << iter << endl;
+}
+} 38
+===== PAGE 39 =====
+C
+01 算法的概念
+O
+02 分支结构程序设计
+N
+T 03 循环结构程序设计
+课程内容
+E
+04 常用算法的应用实例
+N
+05 枚举类型（自学）
+T
+S I/O文件简介
+06
+39
+===== PAGE 40 =====
+2.7 枚举类型（不做要求，自学）
+◆ 枚举类型(enumerate)是c++中的一种派生数据类型，它是用户
+定义的若干枚举常量的集合。
+◆ 枚举类型作为系统工作的可选状态集合，定义的主要目的是增
+加程序的可读性。
+枚举类型的定义格式为：
+enum <类型名> {<枚举常量表>};
+关键字enum指明其后的标识符是一个类型的名字，枚举常量
+表中列出该类型的所有取值，各枚举常量之间以“，”间隔。例：
+enum color_set1 {RED, BLUE, WHITE, BLACK};
+enum week {Sun, Mon, Tue, Wed, Thu, Fri, Sat};
+40
+===== PAGE 41 =====
+2.7 枚举类型（不做要求，自学）
+枚举元素与整数
+1、每个枚举常量对应一个整数值，缺省状态下，从0开始。如：
+enmu color_set1 {RED, BLUE, WHITE, BLACK};
+RED、 BLUE、 WHITE、 BLACK的值分别为0、1、2、3
+2、可以在声明时另行指定枚举元素的值，如：
+enum week {Sun=7, Mon=1, Tue, Wed, Thu, Fri, Sat};
+枚举常量Sun, Mon, Tue, Wed, Thu, Fri, Sat的值分别为7、
+1、2、3、4、5、6
+3、各枚举常量的值可以重复，但各枚举常量标识符必须不同。
+enum fruit_set{apple,orange, banana=1, peach, grape}；
+枚举常量apple、orange、banana、peach、grape的值分别为0、
+1、1、2、3
+41
+===== PAGE 42 =====
+2.7 枚举类型（不做要求，自学）
+枚举类型的变量使用
+1、枚举类型变量定义
+• 先定义枚举类型，再定义枚举变量
+enmu color_set1 {RED, BLUE, WHITE, BLACK};
+color_set1 color1, color2;
+• 枚举类型与枚举变量同时定义：
+enum weekday {Sun, Mon, Tue, Wed, Thu, Fri, Sat} day1, day2;
+• 省略枚举类型名定义枚举变量：
+enum {Sun, Mon, Tue, Wed, Thu, Fri, Sat} day1, day2;
+42
+===== PAGE 43 =====
+2.7 枚举类型（不做要求，自学）
+枚举类型的变量使用
+2、枚举变量的取值范围就是整型数的一个子集。枚举变量占用内存
+的大小与整型数相同。
+3、枚举变量允许的操作只有赋值和关系运算，
+例如：
+enum weekday {Sun, Mon, Tue, Wed, Thu, Fri, Sat};
+weekday day1, day2;
+day1 = day2 = Sat ；
+if (day1 == day2 ) cout<<”相等”；
+43
+===== PAGE 44 =====
+2.7 枚举类型（不做要求，自学）
+枚举类型的变量使用
+4、枚举变量不能直接输入，可以直接输出，但输出的是变量对应
+的整数值。例如：
+weekday day1, day2;
+cin >> day1; //非法
+day2 = Sat; //合法
+cout << day2; //合法，输出的是6
+5、整数值不能直接赋给枚举变量，如需要将整数赋值给枚举变量，
+应进行强制类型转换。
+weekday day1, day2;
+day1=6 ; //非法
+day2=weekday(6); //合法
+44
+===== PAGE 45 =====
+2.7 枚举类型（不做要求，自学）
+A
+以下枚举类型定义中，正确的是___________
+A、enum data{f1=5, f2=3, s1, s2, a=0, b, c};
+B、enum data{f1,‘f2’,‘s1’,‘s2’,a=0,b,c};
+C、enum data{‘x’,‘y’,‘z’,s2,a,b,c};
+D、enum data{5, 3, s1, s2, a, b, c};
+45
+===== PAGE 46 =====
+2.7 枚举类型（不做要求，自学）
+【例】已知2008年1月1日是星期二，编写程序，实现输入任意的月份和日期，输
+出2008年该日是星期几。
+#include <iostream>
+using namespace std;
+enum weekday {Sun, Mon, Tue, Wed, Thu, Fri, Sat};
+int main(){
+int i, month, date, days;
+int mondays[12]={31, 29, 31, 30, 31, 30, 31, 31, 30, 31,
+30, 31};
+weekday w;
+cout << "请输入月份和日期\n";
+cin >> month >> date;
+for (i = days = 0; i < month-1; i++)
+days = days + mondays[i];
+days+=date-1;
+46
+===== PAGE 47 =====
+2.7 枚举类型（不做要求，自学）
+w = (weekday)((days+2)%7); //1月1日是星期二
+switch(w){
+case Sun: cout<<month<<"月"<<date<<"日"<<"是星期天\n"; break;
+case Mon: cout<<month<<"月"<<date<<"日"<<"是星期一\n"; break;
+case Tue: cout<<month<<"月"<<date<<"日"<<"是星期二\n"; break;
+case Wed: cout<<month<<"月"<<date<<"日"<<"是星期三\n"; break;
+case Thu: cout<<month<<"月"<<date<<"日"<<"是星期四\n"; break;
+case Fri: cout<<month<<"月"<<date<<"日"<<"是星期五\n"; break;
+case Sat: cout<<month<<"月"<<date<<"日"<<"是星期六\n"; break;
+}
+}
+47
+===== PAGE 48 =====
+C
+01 算法的概念
+O
+02 分支结构程序设计
+N
+T 03 循环结构程序设计
+课程内容
+E
+04 常用算法的应用实例
+N
+05 枚举类型（自学）
+T
+S I/O文件简介
+06
+48
+===== PAGE 49 =====
+2.8 I/O文件简介
+使用文件输入/输出的目的
+◆
+数据可以保存
+➢
+把文件看作标准设备
+◆
+文件的分类
+◆
+文本文件、二进制文件
+➢
+使用文件步骤
+◆
+定义文件流对象、打开文件、读/写操作、关闭文件
+➢
+49
+===== PAGE 50 =====
+2.8 I/O文件简介
+使用文件的步骤
+1．说明一个文件流对象（内部文件）
+流类ifstream支持从输入文件中提取数据的操作。
+流类ofstream完成数据写入输出文件中的各种操作。
+例如：
+ifstream ifile； //定义输入文件
+ofstream ofile； //定义输出文件
+注意：对文件操作，要增加预编译头文件：
+#include <fstream>
+50
+===== PAGE 51 =====
+2.8 I/O文件简介
+使用文件的步骤
+2．打开文件
+目的：建立文件流对象和磁盘文件之间的联系
+ifile.open(“D:\\cppTest\\infile.txt”)； //打开输入文件
+ofile.open(“D:\\cppTest\\outfile.txt”)；//打开输出文件
+ifile.open(“cppTest\\infile.txt”)； //打开输入文件
+ofile.open(“cppTest\\outfile.txt”)； //打开输出文件
+ifile.open(“D:\\infile.txt”)； //打开输入文件
+ofile.open(“D:\\outfile.txt”)； //打开输出文件
+ifile.open(“infile.txt”)； //打开输入文件
+ofile.open(“outfile.txt”)； //打开输出文件
+绝对路径 vs 相对路径
+51
+===== PAGE 52 =====
+2.8 I/O文件简介
+使用文件的步骤
+3．对文件进行读写操作。
+用提取运算符（>>）和插入运算符（<<）进行文件顺序读写，所谓“顺
+序”指的是从文件头开始进行。提取和插入是在文件缓冲区内进行。
+ifile >> a; ofile << a;
+ifile.get(a); ifile.getline(a,n);
+4．关闭文件
+目的：保证文件的完整；关联断开，防止误操作；操作系统回收资源
+ifile.close(); ofile.close();
+52
+===== PAGE 53 =====
+2.8 I/O文件简介
+键盘屏幕I/O 文件状态的判断
+int a;
+◆ 文件打开成功判断：
+cin >> a;
+➢ 文件流为0，表示打开文件失败
+cout << a;
+ifstream ifile;
+文件I/O
+ifile.open(“my_in_file.txt”);
+ifstream ifile; if (!ifile) {
+cout<<“file open error!\n”;
+ifile.open(“data.txt”);
+return 1;
+ofstream ofile
+}
+ofile.open(“res.txt”);
+int a;
+◆ 文件结束判断：
+ifile >> a;
+➢ ifile.eof() 为真表示读到文件结尾
+ofile << a;
+ifile.close();
+ofile.close();
+53
+===== PAGE 54 =====
+例题：数据存入文件
+【例】将百鸡问题计算结果存入文件。
+#include <fstream>
+#include <iomanip>
+using namespace std;
+int main() {
+int i, j, k;
+ofstream ofile;
+ofile.open("myfile1.txt"); //打开文
+ofile << " 公鸡 母鸡 小鸡" << endl; //输出表头
+for (i = 0; i <= 20; i++)
+for (j = 0; j <= 33; j++) {
+k = 100 - i - j;
+if ((5 * i + 3 * j + k / 3 == 100) && (k % 3 == 0))
+ofile << setw(6) << i << setw(10) << j
+<< setw(10) << k << endl; //写入文
+}
+ofile.close(); //关闭文
+return 0;
+}
+54
+===== PAGE 55 =====
+例题：从文件取数据并输出
+【例】从文件输入一组正整数，要求：输入结束后，倒序输出所有有效
+数据；统计该组数据的平均值。
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+using namespace std;
+int main() {
+int a[100], n = 0; float sum = 0, avg = 0; ifstream ifile;
+ifile.open("data.txt");
+if (!ifile) {
+cout << "文 打开失败\n";
+return 1;
+}
+while (!ifile.eof()) {
+ifile >> a[n]; //从文 读数据
+sum = sum + a[n];
+n++;
+}
+avg = sum / n;
+n--;
+for (; n >= 0; n--)
+cout << a[n] << ' ';
+cout << '\n' << "这组数据平均值为: " << avg << endl;
+ifile.close();
+return 0;
+55
+}

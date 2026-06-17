@@ -1,0 +1,514 @@
+FILE: ch3_函数1121.pdf
+PAGES: 32
+
+
+--- Page 1 ---
+程序设计实践 A(I)
+函数
+王武森
+电气工程学院
+15150698528
+wswang@seu.edu.cn
+1
+--- Page 2 ---
+前情回顾
+无参函数定义格式为：
+《数据类型》函数名(《void》){函数体}
+数据类型：函数返回值类型，没有返回值应将返回值类型定义为void
+函数名：采用合法标识符表示
+对无参函数: 参数括号中的void可略，括号不能省略
+函数体由一系列语句组成
+有参函数定义格式为：
+《数据类型》函数名 (参数类型1 形式参数1《,参数类型2 形
+式参数2,…》){函数体}
+形式参数简称形参，只能是变量名，不允许是常量或表达式；
+各参数即使类型相同也必须分别加以说明。
+2
+--- Page 3 ---
+前情回顾
+函数调用：使程序转去执行函数体。
+除main函数外，其他任何函数都不能单独作为程序运行，
+只能通过被主函数直接或间接调用。
+无参函数 的调用格式：
+函数名 ( )
+有参函数 的调用格式：
+函数名(实际参数表)
+实参：实际参数，可以是常量、变量或表达式
+•
+实参与形参匹配：个数、类型、次序
+•
+3
+--- Page 4 ---
+01 函数的定义与调用
+C
+02 函数返回值、函数声明、参数传递
+O
+03 存储机制、作用域及生命期
+N
+04 函数调用机制
+T
+课程内容
+E
+05 函数的递归调用
+N
+06 函数的重载、内联及默认参数
+T
+S 07 头文件与多文件结构
+08 编译预处理
+4
+--- Page 5 ---
+3.2 函数的参数传递、返回值及函数声明
+1 函数返回值
+2
+函数声明
+3 函数的参数传递
+5
+--- Page 6 ---
+函数返回值
+return语句的格式：
+return 表达式；
+float max (float a,float b){ int main (){
+return (a>=b?a:b); float m = max(5.8, 5.1);
+} }
+• 函数可以有返回值，也可以没有返回值
+• 没有返回值的函数，应将返回值类型定义为void
+• 有返回值的函数，用return语句将处理结果返回调用者
+• 函数体内需要在指定位置退出函数时，可以在该处使用return语句
+6
+--- Page 7 ---
+函数返回值
+规范的函数返回
+int sign2(int a){
+int sign1(int a){ int sign=0;
+if (a>0) if (a>0)
+return 1; sign=1;
+if (a<0) if (a<0)
+return -1; sign=-1;
+} return sign;
+}
+warning C4715: 'sign1' : not all control paths
+return a value
+保证函数的所有执行路径都有返回出口
+7
+--- Page 8 ---
+函数返回值
+【例】 设计函数，根据三角形的三边长求面积。如果不能构成三角形给出提示信息。
+#include <iostream>
+using namespace std;
+充分利用函
+float TriangleArea(float a, float b, float c) {
+数的返回值
+float s;
+if ((a + b <= c) || (a + c <= b) || (b + c <= a))
+return -1;
+s = (a + b + c) / 2;
+return sqrt(s * (s - a) * (s - b) * (s - c));
+}
+int main() {
+float a, b, c, area;
+cout << "输入三角形三边a,b,c:";
+cin >> a >> b >> c;
+area = TriangleArea(a, b, c);
+if (area < 0)
+cout <<'('<< a <<','<< b <<','<< c << ')' << "不能构成三角形！" << endl;
+else
+cout <<"三角形("<< a <<','<< b <<','<< c << ")面积为：" << area << endl;
+}
+8
+--- Page 9 ---
+函数返回值
+【例】求三数中的最大值。
+#include <iostream>
+第一次调用的返回值
+using namespace std;
+作为第二次调用的参数
+int getMax(int i, int j) {
+return (i > j ? i : j);
+}
+int main() {
+int a, b, c, max;
+cout << "请输入三个整型数: ";
+cin >> a >> b >> c;
+max = getMax(a, b);
+max = getMax(getMax(a, b), c);
+max = getMax(max, c);
+cout << "三个整型数的大值为" << max << '\n';
+return 0;
+}
+9
+--- Page 10 ---
+函数声明
+#include <iostream>
+using namespace std;
+int main() {
+float x, y;
+cout << "输入两个实数：" << endl;
+cin >> x >> y;
+cout << x << "和" << y << "中较大数为" << getMax(x, y) << endl;
+return 0;
+}
+float getMax(float a, float b)
+{
+return (a >= b ? a : b);
+}
+Error C3861 'getMax': identifier not found
+函数和变量都必须遵从先定义后使用的原则。
+10
+--- Page 11 ---
+函数声明
+#include <iostream>
+using namespace std;
+float getMax(float a, float b);
+int main() {
+float x, y;
+cout << "输入两个实数：" << endl;
+cin >> x >> y;
+cout << x << "和" << y << "中较大数为" << getMax(x, y) << endl;
+return 0;
+}
+float getMax(float a, float b)
+{
+return (a >= b ? a : b);
+}
+在调用函数前先声明函数，定义可以放在后面
+11
+--- Page 12 ---
+函数声明
+函数声明的格式：
+《函数返回值类型》函数名 (《形参表》)；
+形参表：
+逐个列出参数的类型和参数名，也可仅列出形参的类型
+形参间以逗号分隔
+函数声明和所定义的函数必须在 返回值类型 、函数名 、
+形参个数和类型及次序 等方面完全对应一致
+12
+--- Page 13 ---
+函数声明
+【例】求三角形面积的函数定义为：
+float TriangleArea(float a, float b, float c)
+{
+……
+}
+函数声明：
+float TriangleArea(float a, float b, float c);
+或 float TriangleArea(float, float, float);
+int TriangleArea (float, float, float); //错误，返回值类型不同
+float TriangleArea(int, int, int); //错误，参数类型不同
+float TriangleArea(float, float); //错误，参数个数不同
+13
+--- Page 14 ---
+函数的参数传递
+参数传递
+值传递 引用传递
+✓ 值传递： 值传递：传值调用
+函数调用时实参将值传递给形参，赋值操作。
+实参和形参的个数和排列顺序一一对应，并且对应参数应类型匹配
+(赋值兼容)
+✓
+注意：将实参的值复制给形参，在函数中参加运算的是形参，
+而实参不会发生任何改变。
+14
+--- Page 15 ---
+函数的参数传递
+【例】输入两个实数，输出其中较大的数。其中求两个实数中的较
+大数用函数完成。
+#include <iostream >
+using namespace std;
+int Max(int num1, int num2) {
+return (num1 >= num2 ? num1 : num2);
+}
+int main() {
+float x, y;
+cout << "输入两个实数：";
+cin >> x >> y;
+cout << x << "和" << y << "中较大数为" << Max(x, y) << endl;
+return 0;
+}
+15
+--- Page 16 ---
+函数的参数传递
+【例】输入字符串，输出字符串的长度。其中求字符串的长度用函数完成。
+#include <iostream>
+using namespace std;
+int stringLen(char str[]) {
+int len = 0;
+while (str[len])
+len++;
+return len;
+}
+int main() {
+char myStr[80];
+cout << "输入字符串：";
+cin.getline(myStr, 80);
+cout << myStr << "的长度为：" << stringLen(myStr) << endl;
+return 0;
+}
+16
+--- Page 17 ---
+函数的参数传递
+【例】打印数组元素。
+#include <iostream>
+using namespace std;
+void printArray(int arr[], int size) {
+for (int i = 0; i < size; i++) {
+cout << arr[i] << " ";
+}
+cout << endl;
+}
+int main() {
+int myArray[] = { 1, 2, 3, 4, 5 };
+int size = sizeof(myArray) / sizeof(myArray[0]);
+printArray(myArray, size);
+return 0;
+}
+17
+--- Page 18 ---
+函数的参数传递
+【例】 采用值传递，是否可以实现两个数的交换？
+#include <iostream >
+using namespace std;
+void swap(int num1, int num2) {
+int temp;
+temp = num1;
+num1 = num2;
+num2 = temp;
+cout << "swapNum1 =" << num1 << "\tswapNum2=" << num2 << '\n';
+}
+int main() {
+int mainNum1 = 10, mainNum2 = 20;
+cout << "mainNum1 =" << mainNum1 << "\tmainNum2=" << mainNum2 << '\n';
+swap(mainNum1, mainNum2);
+cout << "mainNum1 =" << mainNum1 << "\tmainNum2=" << mainNum2 << '\n';
+}
+18
+--- Page 19 ---
+函数的参数传递
+参数传递
+值传递 引用传递
+引用传递：传地址调用
+什么是引用？
+19
+--- Page 20 ---
+函数的参数传递
+引用（reference）
+➢ C++的一种数据类型，也称为别名
+➢ 不是定义新变量，而是给已经定义的变量取别名
+定义：类型& 引用变量名 = 已定义过的变量名；
+#include <iostream>
+using namespace std;
+int main() {
+int a = 10;
+int& b = a;
+cout << "a = " << a << endl;
+cout << "b = " << b << endl;
+b = 100;
+cout << "a = " << a << endl;
+cout << "b = " << b << endl;
+return 0;
+}
+20
+--- Page 21 ---
+函数的参数传递
+引用（reference）
+➢ 引用必须初始化
+➢ 引用在初始化后，不可以改变
+#include <iostream>
+using namespace std;
+int main() {
+int a = 10;
+int b = 20;
+//int& c; // 错误，引用必须初始化
+int& c = a; // 一旦初始化后，就不可以更改
+c = b; // 这里并不会c引用b，而是将a的值修改为b的值
+cout << "a = " << a << endl;
+cout << "b = " << b << endl;
+cout << "c = " << c << endl;
+return 0;
+}
+21
+--- Page 22 ---
+函数的参数传递
+引用作为函数形参
+参数传递
+值传递 引用传递
+引用传递：传地址调用
+➢ 函数参数传递时，形参引用实参，指向同一个地址
+22
+--- Page 23 ---
+函数的参数传递
+【例】 采用引用传递，是否可以实现两个数的交换？
+#include <iostream >
+using namespace std;
+void swap(int& num1, int& num2) {
+int temp;
+temp = num1;
+num1 = num2;
+num2 = temp;
+cout << "swapNum1 =" << num1 << "\tswapNum2=" << num2 << '\n';
+}
+int main() {
+int mainNum1 = 10, mainNum2 = 20;
+cout << "mainNum1 =" << mainNum1 << "\tmainNum2=" << mainNum2 << '\n';
+swap(mainNum1, mainNum2);
+cout << "mainNum1 =" << mainNum1 << "\tmainNum2=" << mainNum2 << '\n';
+}
+23
+--- Page 24 ---
+01 函数的定义与调用
+C
+02 函数返回值、函数声明、参数传递
+O
+03 存储机制、作用域及生命期
+N
+04 函数调用机制
+T
+课程内容
+E
+05 函数的递归调用
+N
+06 函数的重载、内联及默认参数
+T
+S 07 头文件与多文件结构
+08 编译预处理
+24
+--- Page 25 ---
+3.9 头文件与多文件结构
+✓ 多文件组织的引入：
+开发较大程序时分工协作
+✓ 多文件程序的管理：
+使用工程(project)/项目
+工程/项目中建立若干用户定义的头文件.h 和源程序文件.cpp
+✓ 多文件程序的编译：
+每个源程序文件进行单独编译
+所有目标文件经连接器连接最终生成一个完整的.exe。
+25
+--- Page 26 ---
+3.9 头文件与多文件结构
+C++多文件工程编译过程
+26
+--- Page 27 ---
+3.9 头文件与多文件结构
+➢ 创建项目
+➢ 添加后缀名为.h的头文件
+➢ 添加后缀名为.cpp的源文件
+➢ 在头文件中包含外部依赖的标准库或其他头文件
+➢ 在头文件中写函数声明、外部变量声明(多个cpp共用的变量)
+➢ 在源文件中包含对应头文件
+➢ 在源文件中写函数定义、外部变量和非共用变量定义
+➢ 在包含main()函数的源文件中包含头文件
+27
+--- Page 28 ---
+3.9 头文件与多文件结构
+【例】 采用牛顿迭代法，求a的平方根。
+28
+x
+n + 1
+= ( x
+n
++ a / x
+n
+) / 2
+#include <iostream>
+#include <cmath>
+using namespace std;
+const double e = 1e-5;
+const int Maxiter = 1000;
+double Newton(double, double, int&);
+int main() {
+double a, x; int iter = 0;
+cout << "输入一个正数: "; cin >> a;
+x = Newton(a, a / 2.0, iter);
+cout << a << " 的平方根为: " << x << "\n迭代次数为: " << iter << endl;
+return 0;
+}
+double Newton(double a, double x, int& iter) {
+double x0, x1;
+x1 = x;
+do {
+x0 = x1;
+x1 = (x0 + a / x0) / 2.0;
+iter++;
+} while ((fabs(x0 - x1) > e) && (iter < Maxiter));
+return x1;
+}
+--- Page 29 ---
+3.9 头文件与多文件结构
+【例】 采用牛顿迭代法，求a的平方根。
+29
+x
+n + 1
+= ( x
+n
++ a / x
+n
+) / 2
+➢ 新建头文件：Newton.h，Parameters.h
+➢ 在头文件中包含外部依赖的标准库或其他头文件
+➢ 在头文件中写函数声明、外部变量声明(多个cpp共用的变量)
+extern 关键字
+Newton.h
+#include <cmath>
+extern const int MAXITER;
+double Newton(double, double, int&);
+Parameters.h
+extern const int MAXITER;
+--- Page 30 ---
+3.9 头文件与多文件结构
+【例】 采用牛顿迭代法，求a的平方根。
+30
+x
+n + 1
+= ( x
+n
++ a / x
+n
+) / 2
+➢ 新建源文件：Newton.cpp，Parameters.cpp
+➢ 在源文件中包含对应头文件
+➢ 在源文件中写函数定义、外部变量和非共用变量定义
+#include "Newton.h" #include "Parameters.h"
+Newton.cpp
+const double EPSILON = 1e-5;
+double Newton(double a, double x, int& iter) {
+double x0, x1;
+x1 = x;
+do {
+x0 = x1;
+x1 = (x0 + a / x0) / 2.0;
+iter++;
+} while ((fabs(x0 - x1) > EPSILON) && (iter < MAXITER));
+return x1;
+}
+#include "Parameters.h"
+Parameters.cpp
+const int MAXITER = 1000;
+--- Page 31 ---
+3.9 头文件与多文件结构
+【例】 采用牛顿迭代法，求a的平方根。
+31
+x
+n + 1
+= ( x
+n
++ a / x
+n
+) / 2
+➢ 在包含main()函数的源文件(通常命名为main.cpp)中包含头文件
+#include <iostream>
+#include "Newton.h"
+#include "Parameters.h"
+using namespace std;
+int main() {
+double a, x;
+int iter = 0;
+do {
+cout << "输入一个正数：";
+cin >> a;
+} while (a < 0);
+x = Newton(a, a / 2.0, iter);
+cout<< a << "的平方根为:" << x << "\n迭代次数为:" << iter <<endl;
+return 0;
+}
+--- Page 32 ---
+3.9 头文件与多文件结构
+32

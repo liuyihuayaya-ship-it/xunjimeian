@@ -1,0 +1,574 @@
+/
+ 
+
+
+· C++ · I/O · I/O
+·  · I/O
+· / · 
+· C++
+
+9.1 C++
+
+· C++/I/O
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+/ 
+
+9.1 C++
+
+· I/O<iostream> <fstream>
+
+ I/O
+
+ 
+
+
+
+basic_ios
+
+basic_streambuf
+
+cin
+basic_istream basic_ ostream
+
+cout cerrclog
+
+I/O
+basic_ifstream
+
+basic_iostream
+
+<<>>
+basic_ofstream
+
+I/O
+
+basic_fstream
+
+9.1 C++
+
+
+
+ 
+
+ /
+ /
+
+ 
+
+ 
+
+
+
+C++cincoutcerrclog  <iostream>
+
+9.2 I/O
+
+· basic_ios:
+
+enum{ skipws=0x0001 left=0x0002, right=0x0004, internal=0x0008, dec=0x0010, oct=0x0020, hex=0x0040, showbase=0x0080, showpoint=0x0100, uppercase=0x0200, showpos=0x0400, scientific=0x0800, fixed=0x1000, unitbuf=0x2000, stdio=0x4000
+}
+
+// // // // // // // // //, //, //,"+"
+// // //, //,stdoutstderr
+
+9.2 I/O
+()
+int inum=255; cout<<":"<<inum<<endl; cout.flags(ios::oct|ios::showbase); cout<< ":"<<inum<<endl;
+ 255 0377
+
+9.2 I/O
+()
+int inum=255; cout.flags(ios::right|ios::dec|ios::showbase); cout.width(10); cout.fill('*'); cout << inum <<endl; cout << left << setw(8) << setfill('a')<<inum<<endl;
+
+ #include <iomanip>
+
+ 
+
+ *******255 255aaaaa
+
+9.2 I/O
+()
+double fnum=31.415926535; cout<<":"<<fnum<<'\n'; cout<<":"<<scientific<<fnum<<'\n'; cout<<":"<<fixed<<fnum<<'\n'; cout<<"9" cout<<setprecision(9)<<scientific<<fnum<<'\n';
+ :31.4159 :3.141593e+001 :31.415927 9:3.141592654e+001
+
+9.3 I/O
+·  · I/OP.315 · p.316 · 0I/Oclear 
+·  · : cin.get(), cin.getline(), cin.ignore(), cin.gcount(), EOF, cin.eof() · 
+· 
+
+Complex
+
+class Complex{
+
+double Real, Image ;
+
+public:
+
+Complex(){double=0.0; double=0.0;}
+
+//
+
+Complex(double r, double i=0.0){Real=r; Image=i;}//
+
+Complex(const Complex &com);
+
+//
+
+double GetReal() {return Real;};
+
+double GetImage() {return Image;};
+
+void SetReal(double r) {Real = r;};
+
+void SetImage(double i) {Image = i;};
+
+void Print(){cout << Real <<"+"<< Image<<"i";};
+
+double abs();
+
+Complex
+Complex ...... };
+
+operator+(const Complex &); operator-(const Complex &);
+
+: complex c1(3,4); c1.Print();
+
+Complex
+
+class Complex{ double Real, Image ;
+public: Complex(double=0.0; double=0.0); ......
+
+friend istream& operator >>(istream &is,complex &c) { is>>c.Real>>c.Image; return is; }
+friend ostream& operator <<(ostream &os,complex &c) { os<<c.Real<<"+"<<c.Image<<"i"<<endl; return os; }
+
+};
+
+:
+
+complex c1(3,4),c2,c3;
+
+cin>>c2>>c3;
+
+cout<<c1;
+
+
+ friend istream &operator>>(istream &, className &); friend ostream &operator<<(ostream &, className &);
+   cincout
+">>""<<"  ">>""<<"
+
+
+cout
+· coutostream · iostream.h
+· ostream - ostream& operator<<(ostream &dest, char *pSource); - ostream& operator<<(ostream &dest, int source); - ostream& operator<<(ostream &dest, char source);
+·  cout<<"Hello world"
+
+9.4 I/O
+·  · ASCII · 
+· C++
+
+0 1 2 3 4 5 6 7 8 ... n-1
+
+...
+
+
+
+ C++n
+
+9.4 I/O
+
+     
+   
+ 
+
+9.4 I/O
+1-- ifstream ifile("myfile_in.txt"  ofstream ofile("myfile_out.txt"); if(!ifile){ cout << ""<<endl; exit(1); }
+2 while(!ifile.eof()) ifile>>... ofile<<...
+3 ifile.close(); ofile.close();
+
+9.4 I/O
+
+
+
+ifstream::ifstream(const char *, int=ios::in, int = filebuf::openprot);
+ofstream::ofstream(const char *, int=ios::out, int = filebuf::openprot);
+
+enum open_mode{
+
+in=0x01,
+
+out=0x02,
+
+ate=0x04, ///, , 
+
+app=0x08,
+
+//,
+
+trunc=0x10,
+
+//, 
+
+nocreate=0x20, //, 
+
+noreplace=0x40, //, ateapp
+
+binary=0x80
+
+//
+
+};
+
+
+
+
+
+int main(){
+
+ifstream sfile("test_in.txt");
+
+ofstream dfile("test_out.txt");
+
+char ch;
+
+if (!sfile){
+
+cout<<":" <<"test_in.txt"<<endl; exit(1);
+
+}
+
+if (!dfile){
+
+cout<<":"<<" test_out.txt "<<endl; exit(1);
+
+}
+
+sfile.unsetf(ios::skipws);
+
+//
+
+while(sfile>>ch) dfile<<ch;
+
+sfile.close();
+
+dfile.close();
+
+return 0;
+
+}
+
+
+
+int main(){ char filename[256],buf[100]; fstream sfile, dfile; cout<<":"<<endl; cin>>filename; sfile.open(filename, ios::in|ios::nocreate); while(!sfile){ cout<<",:"<<endl; sfile.clear(0);// cin>>filename; sfile.open(filename, ios::in|ios::nocreate); } cout<<":"<<endl; cin>>filename; // dfile.open(filename, ios::out); if(!dfile){ cout<<""<<endl; exit(1); }
+
+
+
+while(sfile.getline(buf,100)){ // if (sfile.gcount()<100) dfile<<buf<<`\n'; else dfile<<buf; //99
+} sfile.close(); dfile.close(); return 0; }
+
+
+
+class inventory{ string Description, No; int Quantity; double Cost, Retail;
+public: inventory(string="#",string="0",int=0,double=0, double=0); friend ostream&operator<<(ostream&dist, inventory&iv); friend istream&operator>>(istream&sour, inventory&iv);
+};
+
+inventory::inventory(string des, string no, int quan, double cost, double ret){
+Description=des; No=no; Quantity=quan; Cost=cost; Retail=ret; }
+ostream & operator<<(ostream&dist, inventory&iv){ dist<<iv.Description<<`\t'<<...<<...; return dist;
+}
+istream & operator>>(istream&sour, inventory&iv){ sour>>iv.Description>>iv.No>>...... return sour;
+}
+
+int main(){
+
+inventory car1("2000","805637928",156,80000,105000),
+
+motor1("125", "93612575", 302, 10000, 13000), car2,
+
+motor2;
+
+ofstream distfile("data.txt");
+
+distfile<<car1<<motor1;
+
+//
+
+distfile.close();
+
+//
+
+ifstream distfile("data.txt"); //
+
+distfile>>car2>>motor2;
+
+//
+
+distfile.close();
+
+cout<<car2<<motor2;
+
+//
+
+return 0;
+
+}
+
+
+  istream&istream::read(char *, int); istream&istream::read(unsigned char*, int); //, //, //
+  ostream&ostream::write(const char *, int); ostream&ostream::write(const unsigned char *, int); //, //, //
+
+9.5 
+·  · C++
+·  · 
+
+9.5 
+
+C++
+
+template <typename T>class Array{
+
+T *elements;
+
+int Subscript;
+
+//
+
+int maxSize;
+
+fstream datafile;
+
+public:
+
+Array(int=10);
+
+//10
+
+~Array();
+
+bool IsFull() const {return Subscript==maxSize-1;}
+
+void renews();
+
+//element
+
+void show(){
+
+cout<<""<<Subscript<<'\t'
+
+<<""<<maxSize<<endl; }
+
+void ordinsert(T&); //
+
+friend ostream& operator<<(ostream& dist, Array&
+
+};
+
+ar);
+
+//
+
+template <typename T>
+
+Array<T>::Array(int maxs){maxSize=maxs;
+
+Subscript=-1;
+
+//
+
+T temp;
+
+elements = new T[maxSize];
+
+datafile.open("mydatafile.txt", ios::in); //
+
+if(datafile){
+
+while(!datafile.eof()){
+
+datafile>>temp;
+
+if(!datafile.eof())//,,eof1
+
+ordinsert(temp); //
+
+}
+
+datafile.close(); //
+
+}
+
+datafile.clear(0)
+
+//
+
+}
+
+// template <typename T> Array<T>::~Array(){
+int i; datafile.open("mydatafile.txt",ios::out); for(i=0;i<=Subscript;i++) datafile<<elements[i]; datafile.close(); delete[]elements; }
+
+template <typename T>
+
+//element
+
+void Array<T>::renews(){
+
+int i;
+
+T *temp=elements; maxSize*=2; //temp
+
+elements=new T[maxSize];
+
+//element
+
+for(i=0; i<=Subscript; i++) elements[i] = temp[i]; // 
+
+delete []temp;
+
+//
+
+}
+
+template <typename T>
+
+void Array<T>::ordinsert(T & elem){
+
+int i, j;
+
+//
+
+if (IsFull()) renews();
+
+for (i=0; i <=Subscript; i++) {
+
+if (elem <= elements[i]) break;
+
+if (elem != elements[i]) {
+
+//
+
+for (j=Subscript; j>=i; j--) elements[j+1]=elements[j];
+
+Subscript++;
+
+}
+
+elements[i]=elem;
+
+//
+
+}
+//<<
+
+<typename T> ostream&operator<<(ostream&dist,Array<T>&ar){
+
+int i;
+
+for (i=0;i<=ar.Subscript;i++) dist<<ar.elements[i];
+
+return dist;
+
+}
+
+class inventory{
+
+string Description; //
+
+string No;
+
+//
+
+int Quantity;
+
+//
+
+double Cost;
+
+//
+
+double Retail;
+
+//
+
+public:
+
+inventory(string ="#",string="#",int =0,double =0,double =0);
+
+friend ostream&operator<<(ostream&dist, inventory&iv);
+
+friend istream&operator>>(istream&sour, inventory&iv);
+
+bool operator==(inventory &);
+
+//
+
+bool operator!=(inventory &);
+
+/
+
+bool operator<=(inventory &);
+
+char * 
+
+};
+
+inventory::inventory(string des, string no, int quan, double cost, double ret){
+Description=des; No=no; Quantity=quan; Cost=cost; Retail=ret; }
+
+ostream &operator<<(ostream&dist, inventory&iv){ dist<<left<<setw(20)<<iv.Description<<setw(10)<<iv.No; dist<<right<<setw(10)<<iv.Quantity<<setw(10)<<iv.Cost <<setw(10)<<iv.Retail<<endl; return dist;
+}
+istream&operator>>(istream&sour, inventory&iv){ if (&sour==&cin){ //,  cout<<""<<endl; sour>>iv.Description; cout<<""<<endl; sour>>iv.No; cout<<""<<endl; sour>>iv.Quantity; cout<<""<<endl; sour>>iv.Cost; cout<<""<<endl; sour>>iv.Retail; } else sour>>iv.Description>>iv.No>>iv.Quantity>>iv.Cost>>iv.Retail; return sour;
+}
+
+//== bool inventory::operator==(inventory & inven){
+return No==inven.No; }
+//= bool inventory::operator=(inventory & inven){
+return No=inven.No; }
+//<= bool inventory::operator<=(inventory & inven){
+return No<=inven.No; }
+
+int main(){
+
+Array<inventory> mylist; inventory temp; char ch;
+
+mylist  mylist
+
+cout<<"Y or N"<<endl;
+
+cin>>ch;
+
+while(ch=='Y'||ch=='y'){ cin.get(); // cin >> temp; mylist.ordinsert(temp);
+
+ temp mylist
+
+cout<<"Y or N"<<endl;
+
+cin>>ch;
+
+}
+
+cout<<mylist;
+
+return 0;
+
+}
+
+mylist
+
+
+
+
